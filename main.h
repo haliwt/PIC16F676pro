@@ -9,13 +9,13 @@
 #define	MAIN_H
 #include <stdio.h>
 #include <stdlib.h>
-#include <pic.h>
+//#include <pic.h>
 #include <xc.h>
 #include "hardware/inc/interrupt.h"
-#include "../pic16f676pro.X/hardware/inc/led.h"
-#include "../pic16f676pro.X/hardware/inc/key.h"
-#include "../pic16f676pro.X/hardware/inc/tim0.h"
-#include "../pic16f676pro.X/hardware/inc/sensor.h"
+#include "hardware/inc/led.h"
+#include "hardware/inc/key.h"
+#include "hardware/inc/tim0.h"
+#include "hardware/inc/sensor.h"
 #include "hardware/inc/system.h"
 //#include "tim1.h"
 

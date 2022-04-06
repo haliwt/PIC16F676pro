@@ -1,14 +1,5 @@
 #include "main.h"
 #pragma config FOSC = 0x4, WDTE = 0x0, PWRTE = 0x1, MCLRE = 0x0, BOREN = 0x1, CP = 0x1, CPD = 0x1
-
-//#define uchar unsigned char 
-//#define uint  unsigned int 
-//#define ulongt  unsigned long 
-
-
-
-
-
 void main(void)
 {
      uint8_t i,j;

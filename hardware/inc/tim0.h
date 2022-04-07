@@ -10,6 +10,8 @@
 
 #define TMR0_INTERRUPT_TICKER_FACTOR    1
 
+extern void (*TMR0_InterruptHandler)(void);
+
 
 void TMR0_Initialize(void);
 

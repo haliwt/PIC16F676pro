@@ -70,7 +70,7 @@ void TMR0_ISR(void)
 void TMR0_CallBack(void)
 {
     // Add your custom callback code here
-
+    TMR0_InterruptHandler = TMR0_APP_Fun;
     if(TMR0_InterruptHandler)
     {
         TMR0_InterruptHandler();

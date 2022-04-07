@@ -29,6 +29,14 @@ void  BLINK_LED_Fun(void)
 
 }
 
+void BLINK_LED_OFF(void)
+{
+
+  BLINK_LED1 = 0;
+  BLINK_LED2 =0;
+
+}
+
 void POWER_LED_ON(void)
 {
 

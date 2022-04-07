@@ -28,6 +28,8 @@ extern BLINK blink_t;
 
 void  BLINK_POWER_LED_Init(void);
 void  BLINK_LED_Fun(void);
+void BLINK_LED_OFF(void);
+
 void POWER_LED_ON(void);
 void POWER_LED_OFF(void);
 

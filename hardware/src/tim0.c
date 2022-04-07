@@ -97,15 +97,15 @@ void TMR0_APP_Fun(void)
       jt++;
       blink_t.blink_LedFrequency++;
       if(jt < 3){
-           blink_t.blink_LedFrequency=1;
+           blink_t.blink_LedFrequency=0;
        }
        if(jt > 2 && jt < 5 ){
            
-            blink_t.blink_LedFrequency=0;
+            blink_t.blink_LedFrequency=1;
        }
       if(jt> 4){
           jt=0;
-        }
+     }
 
 
 }

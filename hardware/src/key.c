@@ -2,11 +2,13 @@
 #include "../../main.h"
 
 key_types key;
+CMD_T cmd_t;
 void KEY_Init(void)
 {
+	  ANSELbits.ANS6= 0; //Digital I/O
+
 	  TRISCbits.TRISC2 = 1; //as input GPIO
    
-
 }
 
 uint8_t KEY_Scan(void)
@@ -41,7 +43,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) // adjust key be down 
 			{
-				if(++key.on_time> 3000) //??  0.5us
+				if(++key.on_time> 2000) //??  0.5us
 				{
 					key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01, com = 0x0E ^ 0x1f = 0x11
 					key.on_time = 0;
@@ -116,7 +118,159 @@ uint8_t KEY_Scan(void)
 
 
 
+/**************************************************
+ * 
+ * Function Name: void CheckMode(unsigned char keyvalue)
+ * Function : check which is command ? what is doing?
+ * 
+ * 
+ * 
+**************************************************/
+void CheckMode(unsigned char keyvalue)
+{
+   static uint8_t powkey=0, currKey=0xff;
+
+    switch(keyvalue){
+
+    	case 0: //stop
+    	    cmd_t.gCmd_KeyState++;
+
+    	break;
 
 
+    	case 0x01: // run up or down
+    	 if( cmd_t.gCmd_Power ==PowerOn ){
+           if(currKey != cmd_t.gCmd_KeyState){
+           	  currKey = cmd_t.gCmd_KeyState;
+           	  cmd_t.gCmd_KeyNum ++;
+            if(cmd_t.gCmd_KeyNum  ==1){
+           		cmd_t.gCmd = MotorUp; //state is ?
+           	}
+           	else if(cmd_t.gCmd_KeyNum ==2){
+
+                cmd_t.gCmd = MotorStop;
+
+           	}
+           	else if(cmd_t.gCmd_KeyNum==3){
+
+                cmd_t.gCmd = MotorDown;
+                cmd_t.gCmd_KeyNum=0;
+           	}
+         }
+        }
+        break;
+
+    	case 0x81: //long times ke be presed power On
+    	   powkey = powkey ^ 0x01;
+    	   if(powkey ==1){
+            POWER_LED_ON();
+            cmd_t.gCmd_Power =PowerOn;
+            }
+            else{
+            	POWER_LED_OFF();
+	            cmd_t.gCmd_Power =PowerOff;
+            }
+
+    	break;
+
+    	default:
+            Motor_Stop();
+            POWER_LED_OFF();
+    		BLINK_LED_OFF();
+    		cmd_t.gCmd_KeyState=0;
+    	break;
+
+    }
+
+}
+
+void RunCommand(void)
+{
+    if(cmd_t.gCmd_Power == PowerOn ){
+
+        switch(cmd_t.gCmd){
+
+           case MotorUp :
+            	if(Clamp_Hand()){
+	              Motor_Stop();
+	    		  BLINK_LED_OFF();
+	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
+	    		  return ;
+            	}
+            	if(DOCHARGE()){
+            	   Motor_Stop();
+	    		   BLINK_LED_OFF();
+	    		   cmd_t.gCmd_KeyNum=0;//continuce Up run
+	    		   return ;
+            	}
+            	if(Top_Position()){
+                    Motor_Stop();
+	    		    BLINK_LED_OFF();
+	    		    cmd_t.gCmd_KeyNum =2;
+	    		}
+	    		else{
+	    			Motor_CCW_Run();
+	    			BLINK_LED_Fun();
+	    		}
+
+
+
+            break;
+
+            case MotorDown:
+            	if(Clamp_Hand()){
+	              Motor_Stop();
+	    		  BLINK_LED_OFF();
+	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
+	    		  return ;
+            	}
+            	if(DOCHARGE()){
+            	   Motor_Stop();
+	    		   BLINK_LED_OFF();
+	    		   cmd_t.gCmd_KeyNum=2;//continuce Down run
+	    		   return ;
+            	}
+            	if(Bottom_Position()){
+                    Motor_Stop();
+	    		    BLINK_LED_OFF();
+	    		}
+	    		else{
+	    			Motor_CW_Run();
+	    			BLINK_LED_Fun();
+	    		}
+
+
+            break;
+
+            case MotorStop:
+                cmd_t.gCmd_RunState = MotorStop;
+             	Motor_Stop();
+	    		BLINK_LED_OFF();
+			break;
+
+			default:
+
+
+			break;
+
+
+
+
+
+
+        }
+
+
+    }
+
+    else if(cmd_t.gCmd_Power ==PowerOff){
+
+    	        Motor_Stop();
+	    		POWER_LED_OFF();
+	    		BLINK_LED_OFF();	
+    }
+
+
+}
 
 

@@ -17,6 +17,7 @@
 #include "hardware/inc/tim0.h"
 #include "hardware/inc/sensor.h"
 #include "hardware/inc/system.h"
+#include "hardware/inc/motor.h"
 //#include "tim1.h"
 
 #define uint8_t             unsigned char 

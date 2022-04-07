@@ -38,18 +38,13 @@
 #define		_KEY_COM_3    		    0x94
 #define		_KEY_COM_4    		    0x98
 
-//typedef signed char     int8_t;
-//typedef unsigned char   uint8_t;
-//typedef  unsigned int uint16_t  ;
-//typedef  unsigned long  uint32_t  ;
-
 typedef  struct  _state_
 {
  unsigned char          read;
  unsigned char         buffer;
  unsigned char        value;
- unsigned short         off_time;
- unsigned long         on_time;
+ unsigned char        off_time;
+ unsigned long        on_time;
 
  enum{
   start  = 0,
@@ -63,7 +58,34 @@ typedef  struct  _state_
 
 extern key_types key;
 
+typedef struct _CMD{
 
+   unsigned char gCmd;
+   unsigned char gCmd_Charged;
+   unsigned char gCmd_Power;
+   unsigned char gCmd_KeyState;
+   unsigned char gCmd_KeyNum;
+   unsigned char gCmd_RunState;
+}CMD_T;
+
+extern CMD_T cmd_t;
+
+enum runCmd{
+
+  PowerOff = 0,
+  PowerOn = 0x01,
+  MotorUp = 0x02,
+  MotorDown = 0x03,
+  Charging  = 0x04,
+  MotorLocked = 0x05,
+  MotorStop  = 0x06,
+  DoCharge   =0x07,
+  Top_Pos    =0x08,
+  Bottom_Pos = 0x09,
+  ClampHand  = 0x0A,
+  
+
+};
 
 
 
@@ -71,7 +93,8 @@ void KEY_Init(void);
 unsigned char  KEY_Scan(void);
 
 
-
+void CheckMode(unsigned char keyvalue);
+void RunCommand(void);
 
 
 

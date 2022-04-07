@@ -2,7 +2,7 @@
 #pragma config FOSC = 0x4, WDTE = 0x0, PWRTE = 0x1, MCLRE = 0x0, BOREN = 0x1, CP = 0x1, CPD = 0x1
 void main(void)
 {
-     uint8_t i,j;
+     uint8_t i;
     
      SYSTEM_Initialize();
      KEY_Init();
@@ -13,11 +13,7 @@ void main(void)
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
 
-    // Disable the Global Interrupts
-    //INTERRUPT_GlobalInterruptDisable();
   
-    // Disable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptDisable();
     
 		 
   	while(1)
@@ -43,8 +39,8 @@ void main(void)
          // PORTA = PORTA <<1;
             PORTAbits.RA0 = 1;
             PORTAbits.RA1= 1;
-		  PORTC =PORTC << 1; //__delay_ms(10);
-		 j++;
+		    PORTC =PORTC << 1; //__delay_ms(10);
+		
         }
 		
       

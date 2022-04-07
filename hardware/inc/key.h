@@ -48,8 +48,8 @@ typedef  struct  _state_
  unsigned char          read;
  unsigned char         buffer;
  unsigned char        value;
- unsigned char         off_time;
- unsigned char         on_time;
+ unsigned short         off_time;
+ unsigned long         on_time;
 
  enum{
   start  = 0,

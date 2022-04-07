@@ -3,19 +3,20 @@
 #include "../../main.h"
 
 
-
 #define BLINK_LED1     PORTCbits.RC5
 #define BLINK_LED2     PORTCbits.RC4
 #define POWER_LED      PORTCbits.RC3
 
-#define uint8_t             unsigned char 
-#define int8_t              unsigned int 
-#define uint16_t            unsigned short 
-#define uint32_t            unsigned long 
+#define uchar           unsigned char 
+#define uint            unsigned int 
+#define ulong            unsigned long 
+//typedef unsigned long   uint32_t;
+
+
 
 typedef struct _BLINK_LED{
 
-   uint8_t blink_LedFrequency;
+    uchar  blink_LedFrequency;
     
 
 

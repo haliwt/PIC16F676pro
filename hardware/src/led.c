@@ -2,6 +2,8 @@
 #include "../../main.h"
 BLINK blink_t;
 
+
+
 void  BLINK_POWER_LED_Init(void)
 {
     TRISC = 0x00 ; //PORTC as output GPIO

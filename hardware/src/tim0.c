@@ -9,7 +9,7 @@ void (*TMR0_InterruptHandler)(void);
 *Funciton : timer0 is 1ms 
 *           Timer0 overflow = 256 * prescaler * (__XTAL_FREQ / 4)= 256 * 4 * 1us = 1024us = 1.024ms
 *           TMR0 = [256-(__XTAL-FREQ/4)/prescaler * Timer0 overflow(s)]
-				 =(256 - 1000000/4 * 0.001s) = (256 - 250)=6
+				 =(256 - (4MHz/4us)/4 * 10000us) = (256 - 250)=6
 *
 *
 ***************************************************************/
@@ -88,23 +88,24 @@ void TMR0_DefaultInterruptHandler(void){
 
 void TMR0_APP_Fun(void)
 {
-   static uint16_t i,j;
+   static uint16_t it,jt;
    
-   i++;
-   if(i>499){ //500ms
+   it++;
+   if(it>499){ //500ms
    
-      i=0;
-      j++;
+      it=0;
+      jt++;
       blink_t.blink_LedFrequency++;
-      if(j < 3){
+      if(jt < 3){
            blink_t.blink_LedFrequency=1;
        }
-       if(j > 2 && j <= 5){
-           j=0;
-       
-           blink_t.blink_LedFrequency=0;
-
+       if(jt > 2 && jt < 5 ){
+           
+            blink_t.blink_LedFrequency=0;
        }
+      if(jt> 4){
+          jt=0;
+        }
 
 
 }

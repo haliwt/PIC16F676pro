@@ -156,7 +156,7 @@ void CheckMode(unsigned char keyvalue)
 				cmd_t.topPos=0;
 			    
 			}
-			if(cmd_t.handPos ==1){
+			if(cmd_t.handPos ==1){ //clamp hand 
 				if(Clamp_Hand()==1){
 				 cmd_t.gCmd_KeyNum = 3;
 				}
@@ -169,16 +169,15 @@ void CheckMode(unsigned char keyvalue)
 				BLINK_LED1_RC5_SetLow() ;
 				BLINK_LED2_RC4_SetHigh() ;
            	}
-           	else if(cmd_t.gCmd_KeyNum ==2){
+           	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum ==4){
 
                 cmd_t.gCmd = MotorStop;
+				if(cmd_t.gCmd_KeyNum==4)cmd_t.gCmd_KeyNum=0;
 				
-
-           	}
+			}
            	else if(cmd_t.gCmd_KeyNum==3){
 
                 cmd_t.gCmd = MotorDown;
-                cmd_t.gCmd_KeyNum=0;
 				BLINK_LED1_RC5_SetHigh();
 				BLINK_LED2_RC4_SetLow(); 
            	}
@@ -235,7 +234,11 @@ void RunCommand(void)
 	    	   }
 			   else{
 					cmd_t.gCmd_KeyState++;
-	    			Motor_CCW_Run();
+	    			
+			   		cmd_t.motorRun =0; //up =0
+				    cmd_t.mtorDir =0; //up =0;
+				    cmd_t.gCmd_KeyNum = 1;
+				    Motor_CCW_Run();
 	    		//	BLINK_LED_Fun();
 	    	 }
 			break;
@@ -260,6 +263,9 @@ void RunCommand(void)
 	    		}
 	    		else{
 					cmd_t.gCmd_KeyState++;
+					cmd_t.motorRun =1;
+				    cmd_t.mtorDir =1;
+					cmd_t.gCmd_KeyNum = 3;
 	    			Motor_CW_Run();
 	    			//BLINK_LED_Fun();
 	    		}

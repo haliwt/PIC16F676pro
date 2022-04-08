@@ -10,9 +10,9 @@ void  BLINK_POWER_LED_Init(void)
     //POWER_LED_RC3_SetDigitalMode();
     ANSELbits.ANS7 = 0; //digital I/O
 
-    PORTCbits.RC3=0; //off
-    PORTCbits.RC4 =0; //off
-    PORTCbits.RC5 =0 ; //led off 
+    PORTCbits.RC3=1; //off
+    PORTCbits.RC4 =1; //off
+    PORTCbits.RC5 =1 ; //led off 
 
 }
 void  BLINK_LED_Fun(void)

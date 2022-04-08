@@ -102,19 +102,19 @@ void TMR0_APP_Fun(void)
    
       it=0;
       zt++;
-      if(zt==1){
+      if(zt < 3){
           blink_t.blink_LedFrequency=0;
       }
-      else{
+      else if( zt >=3 && zt < 5){
           blink_t.blink_LedFrequency=1;
+          
+      }
+      else {
+          blink_t.blink_LedFrequency=0;
           zt=0;
       }
       
-    
-    
-
-
-}
+    }
 }
 
 

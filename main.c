@@ -19,10 +19,11 @@ void main(void)
     while(1)
   	{
    	      docharging = DOCHARGE_RA0_GetValue();
+          
           if(docharging == 0){
             keyValue = KEY_Scan()	;
             CheckMode(keyValue);
-            RunCommand();
+            //RunCommand();
           }
           else{
             Motor_Stop();

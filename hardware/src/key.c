@@ -6,7 +6,7 @@ CMD_T cmd_t;
 void KEY_Init(void)
 {
 	//ANSELbits.ANS6= 0; //digital  I/O
-	 KEY1_RC2_SetDigitalMode() ;
+	KEY1_RC2_SetDigitalMode() ;
     //TRISCbits.TRISC2 = 1; //as input GPIO
    KEY1_RC2_SetDigitalInput() ;
 }

@@ -13,8 +13,8 @@
 #define BLINK_LED1_RC5_SetHigh()            do { PORTCbits.RC5 = 1; } while(0)
 #define BLINK_LED1_RC5_SetLow()             do { PORTCbits.RC5 = 0; } while(0)
 
-#define BLINK_LED2_RC5_SetHigh()            do { PORTCbits.RC4 = 1; } while(0)
-#define BLINK_LED2_RC5_SetLow()             do { PORTCbits.RC4 = 0; } while(0)
+#define BLINK_LED2_RC4_SetHigh()            do { PORTCbits.RC4 = 1; } while(0)
+#define BLINK_LED2_RC4_SetLow()             do { PORTCbits.RC4 = 0; } while(0)
 
 
 

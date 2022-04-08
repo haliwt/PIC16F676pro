@@ -6,7 +6,8 @@ BLINK blink_t;
 
 void  BLINK_POWER_LED_Init(void)
 {
-    TRISC = 0x00 ; //PORTC as output GPIO
+    TRISC = 0b000100;
+
     PORTCbits.RC3=0; //off
     PORTCbits.RC4 =0; //off
     PORTCbits.RC5 =0 ; //led off 
@@ -38,7 +39,7 @@ void BLINK_LED_OFF(void)
  // BLINK_LED1 = 0;
   BLINK_LED1_RC5_SetLow() ;
   //BLINK_LED2 =0;
-  BLINK_LED2_RC5_SetLow()  ;
+  BLINK_LED2_RC4_SetLow()  ;
 
 }
 

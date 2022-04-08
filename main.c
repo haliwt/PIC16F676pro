@@ -24,9 +24,9 @@ void main(void)
   	{
    	  
           keyValue = KEY_Scan()	;
-         // CheckMode(keyValue);
-        //  RunCommand();
-        //  POWER_LED_ON();
+        //  CheckMode(keyValue);
+        //   RunCommand();
+         //  POWER_LED_ON();
 		
 #if 0
       if(blink_t.blink_LedFrequency==0)

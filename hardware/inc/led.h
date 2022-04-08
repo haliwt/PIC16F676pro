@@ -10,13 +10,21 @@
 #define BLINK_LED2     PORTCbits.RC4
 #define POWER_LED      PORTCbits.RC3
 
+#define BLINK_LED1_RC5_SetDigitalInput()    do { TRISCbits.TRISC5 = 1; } while(0)
+#define BLINK_LED1_RC5_SetDigitalOutput()   do { TRISCbits.TRISC5 = 0; } while(0)
+
 #define BLINK_LED1_RC5_SetHigh()            do { PORTCbits.RC5 = 1; } while(0)
 #define BLINK_LED1_RC5_SetLow()             do { PORTCbits.RC5 = 0; } while(0)
+
+#define BLINK_LED2_RC4_SetDigitalInput()    do { TRISCbits.TRISC4 = 1; } while(0)
+#define BLINK_LED2_RC4_SetDigitalOutput()   do { TRISCbits.TRISC4 = 0; } while(0)
 
 #define BLINK_LED2_RC4_SetHigh()            do { PORTCbits.RC4 = 1; } while(0)
 #define BLINK_LED2_RC4_SetLow()             do { PORTCbits.RC4 = 0; } while(0)
 
 
+#define POWER_LED_RC3_SetDigitalInput()    do { TRISCbits.TRISC3 = 1; } while(0)
+#define POWER_LED_RC3_SetDigitalOutput()   do { TRISCbits.TRISC3 = 0; } while(0)
 
 #define POWER_LED_RC3_SetHigh()            do { PORTCbits.RC3 = 1; } while(0)
 #define POWER_LED_RC3_SetLow()             do { PORTCbits.RC3 = 0; } while(0)

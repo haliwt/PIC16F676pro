@@ -14,8 +14,8 @@ void KEY_Init(void)
 uint8_t KEY_Scan(void)
 {
   uint8_t  reval = 0;
-   KEY1_RC2_SetDigitalMode() ;
-   KEY1_RC2_SetDigitalInput() ;
+  // KEY1_RC2_SetDigitalMode() ;
+ //  KEY1_RC2_SetDigitalInput() ;
 	key.read = _KEY_ALL_OFF; //0x1F 
 
 

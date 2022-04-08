@@ -24,7 +24,7 @@ void main(void)
   	{
    	  
           keyValue = KEY_Scan()	;
-        //  CheckMode(keyValue);
+         // CheckMode(keyValue);
         //  RunCommand();
         //  POWER_LED_ON();
 		

@@ -5,21 +5,22 @@ key_types key;
 CMD_T cmd_t;
 void KEY_Init(void)
 {
-	ANSELbits.ANS6= 0; //digital  I/O
-    TRISCbits.TRISC2 = 1; //as input GPIO
-   
+	//ANSELbits.ANS6= 0; //digital  I/O
+	 KEY1_RC2_SetDigitalMode() ;
+    //TRISCbits.TRISC2 = 1; //as input GPIO
+   KEY1_RC2_SetDigitalInput() ;
 }
 
 uint8_t KEY_Scan(void)
 {
   uint8_t  reval = 0;
-    ANSELbits.ANS6= 0;
-    TRISCbits.TRISC2 = 1; //as input GPIO
+   KEY1_RC2_SetDigitalMode() ;
+   KEY1_RC2_SetDigitalInput() ;
 	key.read = _KEY_ALL_OFF; //0x1F 
 
 
 	
-	if(KEY_1 == 0)
+	if(KEY1_RC2_GetValue() == 0)
 	{
 		
         key.read &= ~0x01; // 0x1f & 0xfe =  0x1E

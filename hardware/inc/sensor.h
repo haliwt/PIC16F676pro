@@ -5,7 +5,7 @@
 #define TOP_POS()  		(PORTAbits.RA2)
 #define BOTTOM_POS()   	(PORTAbits.RA1)
 #define DOCHARGE()      (PORTAbits.RA0)
-#define CLAMPHAND()     (PORTAbits.RA5)
+#define CLAMPHAND()      (PORTAbits.RA5)
 
 
 void SENSOR_Init(void);

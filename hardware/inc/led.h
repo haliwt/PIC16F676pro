@@ -3,9 +3,26 @@
 #include "../../main.h"
 
 
+
+
+
 #define BLINK_LED1     PORTCbits.RC5
 #define BLINK_LED2     PORTCbits.RC4
 #define POWER_LED      PORTCbits.RC3
+
+#define BLINK_LED1_RC5_SetHigh()            do { PORTCbits.RC5 = 1; } while(0)
+#define BLINK_LED1_RC5_SetLow()             do { PORTCbits.RC5 = 0; } while(0)
+
+#define BLINK_LED2_RC5_SetHigh()            do { PORTCbits.RC4 = 1; } while(0)
+#define BLINK_LED2_RC5_SetLow()             do { PORTCbits.RC4 = 0; } while(0)
+
+
+
+#define POWER_LED_RC3_SetHigh()            do { PORTCbits.RC3 = 1; } while(0)
+#define POWER_LED_RC3_SetLow()             do { PORTCbits.RC3 = 0; } while(0)
+#define POWER_LED_RC3_SetAnalogMode()      do { ANSELbits.ANS7 = 1; } while(0)
+#define POWER_LED_RC3_SetDigitalMode()     do { ANSELAbits.ANS7 = 0; } while(0)
+
 
 #define uchar           unsigned char 
 #define uint            unsigned int 

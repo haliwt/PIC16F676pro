@@ -85,27 +85,33 @@ void TMR0_DefaultInterruptHandler(void){
     // add your TMR0 interrupt custom code
     // or set custom function using TMR0_SetInterruptHandler()
 }
-
+/****************************************************************
+ * 
+ * Function Name:void TMR0_APP
+ * 
+ * _Fun(void)
+ * Function : 1ms interrupt onece 
+ * 
+****************************************************************/
 void TMR0_APP_Fun(void)
 {
-   static uint16_t it,jt;
+   static uint16_t it,zt;
    
    it++;
    if(it>499){ //500ms
    
       it=0;
-      jt++;
-      blink_t.blink_LedFrequency++;
-      if(jt < 3){
-           blink_t.blink_LedFrequency=0;
-       }
-       if(jt > 2 && jt < 5 ){
-           
-            blink_t.blink_LedFrequency=1;
-       }
-      if(jt> 4){
-          jt=0;
-     }
+      zt++;
+      if(zt==1){
+          blink_t.blink_LedFrequency=0;
+      }
+      else{
+          blink_t.blink_LedFrequency=1;
+          zt=0;
+      }
+      
+    
+    
 
 
 }

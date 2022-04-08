@@ -3,7 +3,7 @@
 #include "../../main.h"
 
 
-#define KEY_1()   (PORTCbits.RC2)
+#define KEY_1   PORTCbits.RC2
 
 #define		_KEY_ALL_OFF				0X1F
 

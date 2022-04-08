@@ -10,6 +10,7 @@ void main(void)
      TMR0_Initialize();
      Motor_Init();
      SENSOR_Init();
+     BLINK_POWER_LED_Init();
 	 // Enable the Global Interrupts
     INTERRUPT_GlobalInterruptEnable();
 
@@ -23,11 +24,18 @@ void main(void)
   	{
    	  
           keyValue = KEY_Scan()	;
-          CheckMode(keyValue);
-          RunCommand();
-       
+        //  CheckMode(keyValue);
+        //  RunCommand();
+        //  POWER_LED_ON();
 		
-      
+#if 0
+      if(blink_t.blink_LedFrequency==0)
+            POWER_LED_ON();
+      else{
+        POWER_LED_OFF();
+        
+       }
+#endif 
     }
 }
 

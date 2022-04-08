@@ -5,23 +5,24 @@ key_types key;
 CMD_T cmd_t;
 void KEY_Init(void)
 {
-	  ANSELbits.ANS6= 0; //Digital I/O
-
-	  TRISCbits.TRISC2 = 1; //as input GPIO
+	ANSELbits.ANS6= 0; //digital  I/O
+    TRISCbits.TRISC2 = 1; //as input GPIO
    
 }
 
 uint8_t KEY_Scan(void)
 {
   uint8_t  reval = 0;
-
+    ANSELbits.ANS6= 0;
+    TRISCbits.TRISC2 = 1; //as input GPIO
 	key.read = _KEY_ALL_OFF; //0x1F 
 
 
 	
-	if(KEY_1() == 0)
+	if(KEY_1 == 0)
 	{
-		key.read &= ~0x01; // 0x1f & 0xfe =  0x1E
+		
+        key.read &= ~0x01; // 0x1f & 0xfe =  0x1E
 	}
 	
 	
@@ -35,6 +36,7 @@ uint8_t KEY_Scan(void)
 				key.state    = first;
 				key.on_time  = 0;
 				key.off_time = 0;
+                POWER_LED_ON();
                 
 			}
 			break;
@@ -43,7 +45,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) // adjust key be down 
 			{
-				if(++key.on_time> 2000) //??  0.5us
+				if(++key.on_time> 4000) //??  0.5us
 				{
 					key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01, com = 0x0E ^ 0x1f = 0x11
 					key.on_time = 0;
@@ -63,12 +65,13 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) //again adjust key if be pressed down 
 			{
-				if(++key.on_time>90000)//long key be down
+				if(++key.on_time>20000)//long key be down
 				{
 					
 					key.value = key.value|0x80; //key.value = 0x01 | 0x80  =0x81  
 					key.on_time = 0;
 					key.state   = finish;
+                     POWER_LED_OFF();
                    
 				}
 			}

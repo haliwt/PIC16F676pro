@@ -144,16 +144,13 @@ void CheckMode(unsigned char keyvalue)
           if(currKey != cmd_t.gCmd_KeyState){
              currKey = cmd_t.gCmd_KeyState;
 
-		   if(cmd_t.handPos ==1){ //clamp hand 
-				if(Clamp_Hand()==1){
-				  cmd_t.gCmd = MotorStop;
-				}
-				else{
-				  cmd_t.handPos=0;
-				}
-			}
 		   
-		    if(cmd_t.handPos==0){
+			if(Clamp_Hand()==1){
+
+				cmd_t.gCmd = MotorStop; //clamp
+				
+			}
+		    else{
 	           	cmd_t.gCmd_KeyNum ++;
 
 				if(cmd_t.bottomPos ==1){
@@ -167,7 +164,7 @@ void CheckMode(unsigned char keyvalue)
 					cmd_t.topPos=0;
 				    
 				}
-		    }
+		    
 			
             if(cmd_t.gCmd_KeyNum  ==1){
            		cmd_t.gCmd = MotorUp; //state is ?
@@ -186,6 +183,7 @@ void CheckMode(unsigned char keyvalue)
 				BLINK_LED1_RC5_SetHigh();
 				BLINK_LED2_RC4_SetLow(); 
            	}
+		   }
          }
         }
         break;
@@ -215,12 +213,14 @@ void CheckMode(unsigned char keyvalue)
 
 void RunCommand(void)
 {
-    if(cmd_t.gCmd_Power == PowerOn ){
+
+    static uint8_t currstop = 0xff,laststop=0;
+	if(cmd_t.gCmd_Power == PowerOn ){
 
         switch(cmd_t.gCmd){
 
            case MotorUp :
-		   	 
+		   	    laststop++;
             	if(Clamp_Hand()){
 	              Motor_Stop();
 	    		  BLINK_LED_OFF();
@@ -250,7 +250,7 @@ void RunCommand(void)
 			break;
 
             case MotorDown:
-				
+				laststop++;
             	if(Clamp_Hand()){
 	              Motor_Stop();
 	    		  BLINK_LED_OFF();
@@ -281,10 +281,15 @@ void RunCommand(void)
             break;
 
             case MotorStop:
-			    cmd_t.gCmd_KeyState++;
-                cmd_t.gCmd_RunState = MotorStop;
+				if(currstop != laststop){
+					currstop = laststop;
+				    cmd_t.gCmd_KeyState++;
+	                cmd_t.gCmd_RunState = MotorStop;
+					BLINK_LED_OFF();
+				}
+			
              	Motor_Stop();
-	    		BLINK_LED_OFF();
+	    		
 			break;
 
 			default:

@@ -143,27 +143,32 @@ void CheckMode(unsigned char keyvalue)
        
           if(currKey != cmd_t.gCmd_KeyState){
              currKey = cmd_t.gCmd_KeyState;
-           	  cmd_t.gCmd_KeyNum ++;
 
-			if(cmd_t.bottomPos ==1){
-
-				cmd_t.gCmd_KeyNum =1;
-				cmd_t.bottomPos=0;
-			}
-			if(cmd_t.topPos ==1){
-				
-				cmd_t.gCmd_KeyNum = 3;
-				cmd_t.topPos=0;
-			    
-			}
-			if(cmd_t.handPos ==1){ //clamp hand 
+		   if(cmd_t.handPos ==1){ //clamp hand 
 				if(Clamp_Hand()==1){
-				 cmd_t.gCmd_KeyNum = 3;
+				  cmd_t.gCmd = MotorStop;
 				}
 				else{
 				  cmd_t.handPos=0;
 				}
 			}
+		   
+		    if(cmd_t.handPos==0){
+	           	cmd_t.gCmd_KeyNum ++;
+
+				if(cmd_t.bottomPos ==1){
+
+					cmd_t.gCmd_KeyNum =1;
+					cmd_t.bottomPos=0;
+				}
+				if(cmd_t.topPos ==1){
+					
+					cmd_t.gCmd_KeyNum = 3;
+					cmd_t.topPos=0;
+				    
+				}
+		    }
+			
             if(cmd_t.gCmd_KeyNum  ==1){
            		cmd_t.gCmd = MotorUp; //state is ?
 				BLINK_LED1_RC5_SetLow() ;
@@ -221,6 +226,7 @@ void RunCommand(void)
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
+	    		  cmd_t.mtorDir =0;
 	    		  cmd_t.handPos=1;
 	    		  cmd_t.gCmd=MotorStop;
 	    		  
@@ -250,6 +256,7 @@ void RunCommand(void)
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
+	    		  cmd_t.mtorDir =1;
 	    		  cmd_t.handPos=1;
 	    		  cmd_t.gCmd=MotorStop;
 	    		  

@@ -28,8 +28,9 @@
 
 #define POWER_LED_RC3_SetHigh()            do { PORTCbits.RC3 = 1; } while(0)
 #define POWER_LED_RC3_SetLow()             do { PORTCbits.RC3 = 0; } while(0)
+
 #define POWER_LED_RC3_SetAnalogMode()      do { ANSELbits.ANS7 = 1; } while(0)
-#define POWER_LED_RC3_SetDigitalMode()     do { ANSELAbits.ANS7 = 0; } while(0)
+#define POWER_LED_RC3_SetDigitalMode()     do { ANSELbits.ANS7 = 0; } while(0)
 
 
 #define uchar           unsigned char 
@@ -54,6 +55,7 @@ extern BLINK blink_t;
 void  BLINK_POWER_LED_Init(void);
 void  BLINK_LED_Fun(void);
 void BLINK_LED_OFF(void);
+void BLINK_LED_ON(void);
 
 void POWER_LED_ON(void);
 void POWER_LED_OFF(void);

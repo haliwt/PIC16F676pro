@@ -18,12 +18,11 @@ void main(void)
     INTERRUPT_PeripheralInterruptEnable();
     while(1)
   	{
-   	      docharging = DOCHARGE_GetValue() ;
-          if(docharging == 1){
+   	      docharging = DOCHARGE_RA0_GetValue();
+          if(docharging == 0){
             keyValue = KEY_Scan()	;
             CheckMode(keyValue);
             RunCommand();
-            POWER_LED_ON();
           }
           else{
             Motor_Stop();

@@ -14,8 +14,8 @@ void KEY_Init(void)
 uint8_t KEY_Scan(void)
 {
   uint8_t  reval = 0;
-  // KEY1_RC2_SetDigitalMode() ;
- //  KEY1_RC2_SetDigitalInput() ;
+  KEY1_RC2_SetDigitalMode() ;
+  KEY1_RC2_SetDigitalInput() ;
 	key.read = _KEY_ALL_OFF; //0x1F 
    if(KEY1_RC2_GetValue() == 0)
 	{
@@ -34,7 +34,7 @@ uint8_t KEY_Scan(void)
 				key.state    = first;
 				key.on_time  = 0;
 				key.off_time = 0;
-                POWER_LED_ON();
+             //   POWER_LED_ON();
                 
 			}
 			break;
@@ -69,7 +69,7 @@ uint8_t KEY_Scan(void)
 					key.value = key.value|0x80; //key.value = 0x01 | 0x80  =0x81  
 					key.on_time = 0;
 					key.state   = finish;
-                     POWER_LED_OFF();
+                    // POWER_LED_OFF();
                    
 				}
 			}
@@ -176,8 +176,7 @@ void CheckMode(unsigned char keyvalue)
 
     	default:
             Motor_Stop();
-            POWER_LED_OFF();
-    		BLINK_LED_OFF();
+    	    BLINK_LED_OFF();
     		cmd_t.gCmd_KeyState=0;
     	break;
 

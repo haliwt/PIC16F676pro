@@ -43,7 +43,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) // adjust key be down 
 			{
-				if(++key.on_time> 2000) //??  0.5us
+				if(++key.on_time> 1000) //??  0.5us
 				{
 					key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01, com = 0x0E ^ 0x1f = 0x11
 					key.on_time = 0;
@@ -134,7 +134,8 @@ void CheckMode(unsigned char keyvalue)
     switch(keyvalue){
         
         case 0:
-            cmd_t.gCmd_KeyState++;
+			cmd_t.gCmd_KeyState++;
+            return ;
         break;
 
     	case 0x01: // run up or down
@@ -143,16 +144,27 @@ void CheckMode(unsigned char keyvalue)
           if(currKey != cmd_t.gCmd_KeyState){
              currKey = cmd_t.gCmd_KeyState;
            	  cmd_t.gCmd_KeyNum ++;
+
+			if(cmd_t.bottomPos ==1){
+
+				cmd_t.gCmd_KeyNum =1;
+				cmd_t.bottomPos=0;
+			}
+			if(cmd_t.topPos ==1){
+				
+				cmd_t.gCmd_KeyNum = 3;
+				cmd_t.topPos=0;
+				
+			}
             if(cmd_t.gCmd_KeyNum  ==1){
            		cmd_t.gCmd = MotorUp; //state is ?
 				BLINK_LED1_RC5_SetLow() ;
-				BLINK_LED2_RC4_SetLow(); 
+				BLINK_LED2_RC4_SetHigh() ;
            	}
            	else if(cmd_t.gCmd_KeyNum ==2){
 
                 cmd_t.gCmd = MotorStop;
-				BLINK_LED1_RC5_SetLow() ;
-				BLINK_LED2_RC4_SetHigh() ;
+				
 
            	}
            	else if(cmd_t.gCmd_KeyNum==3){
@@ -196,38 +208,45 @@ void RunCommand(void)
         switch(cmd_t.gCmd){
 
            case MotorUp :
+		   	 
             	if(Clamp_Hand()){
 	              Motor_Stop();
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
-	    		  return ;
+	    		  cmd_t.gCmd=MotorStop;
+	    		  
             	}
-            	if(Top_Position()){
-                    Motor_Stop();
-	    		    BLINK_LED_OFF();
+               else if(Top_Position()){
+                      Motor_Stop();
+	    		      BLINK_LED_OFF();
 					 cmd_t.gCmd_KeyState++;
-	    		    cmd_t.gCmd_KeyNum =2;
-	    		}
-	    		else{
+					cmd_t.topPos=1;
+					cmd_t.gCmd=MotorStop;
+	    	   }
+			   else{
 					cmd_t.gCmd_KeyState++;
 	    			Motor_CCW_Run();
 	    		//	BLINK_LED_Fun();
-	    		}
+	    	 }
 			break;
 
             case MotorDown:
+				
             	if(Clamp_Hand()){
 	              Motor_Stop();
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
-	    		  return ;
+	    		  cmd_t.gCmd=MotorStop;
+	    		  
             	}
-            	if(Bottom_Position()){
+            	else if(Bottom_Position()){
                     Motor_Stop();
 	    		    BLINK_LED_OFF();
 					cmd_t.gCmd_KeyState++;
+					cmd_t.bottomPos=1;
+					cmd_t.gCmd=MotorStop;
 	    		}
 	    		else{
 					cmd_t.gCmd_KeyState++;

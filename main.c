@@ -23,7 +23,7 @@ void main(void)
           if(docharging == 0){
             keyValue = KEY_Scan()	;
             CheckMode(keyValue);
-            //RunCommand();
+            RunCommand();
           }
           else{
             Motor_Stop();

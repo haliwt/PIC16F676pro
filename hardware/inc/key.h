@@ -73,6 +73,9 @@ typedef struct _CMD{
    unsigned char gCmd_KeyState;
    unsigned char gCmd_KeyNum;
    unsigned char gCmd_RunState;
+   unsigned char topPos;
+   unsigned char bottomPos;
+   
 }CMD_T;
 
 extern CMD_T cmd_t;

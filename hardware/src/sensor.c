@@ -8,6 +8,7 @@ void SENSOR_Init(void)
 	ANSELbits.ANS1 = 0 ;
 	ANSELbits.ANS2 = 0;
 
+
     TRISAbits.TRISA0 = 1 ; //as input  GPIO --
 	TRISAbits.TRISA1 = 1 ; //as input  GPIO
 	TRISAbits.TRISA2 = 1 ; //as input  GPIO
@@ -17,7 +18,8 @@ void SENSOR_Init(void)
 
 uint8_t Top_Position(void)
 {
-   if(TOP_POS_RA2_GetValue()==0){ //reach top position
+	TRISAbits.TRISA2 = 1 ; 
+   if(TOP_POS_RA2_GetValue()==1){ //reach top position
 
    	  return 1;
    } 
@@ -29,7 +31,7 @@ uint8_t Top_Position(void)
 }
 uint8_t Bottom_Position(void)
 {
-	if(BOTTOM_POS_RA1_GetValue()==0){
+	if(BOTTOM_POS_RA1_GetValue()==1){
        return 1;
 	}
 	else{
@@ -43,11 +45,11 @@ uint8_t Do_Charge(void)
 {
 
   if(DOCHARGE_RA0_GetValue()==1){ //don't charging 
-      return 0;
+      return 1;
   }
   else{ //charging state
 
-  	return 1;
+  	return 0;
   }
 
 
@@ -55,7 +57,8 @@ uint8_t Do_Charge(void)
 }
 uint8_t Clamp_Hand(void)
 {
-    if(CLAMPHAND_RA5_GetValue()==0){ //clamp hand
+	 TRISAbits.TRISA5 = 1 ;
+	if(CLAMPHAND_RA5_GetValue()==1){ //clamp hand
     	return 1;
     }
     else{

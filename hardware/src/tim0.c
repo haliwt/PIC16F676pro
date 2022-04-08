@@ -95,7 +95,7 @@ void TMR0_DefaultInterruptHandler(void){
 ****************************************************************/
 void TMR0_APP_Fun(void)
 {
-   static uint16_t it,zt;
+   static uint16_t it,zt,jt;
    
    it++;
    if(it>499){ //500ms
@@ -113,6 +113,16 @@ void TMR0_APP_Fun(void)
           blink_t.blink_LedFrequency=0;
           zt=0;
       }
+      if(motor_t.motorSet ==1){
+          jt++;
+          if(jt >99){
+              jt=0;
+              motor_t.motorTimers ++;
+
+          }
+
+      }
+
       
     }
 }

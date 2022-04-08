@@ -17,10 +17,7 @@ uint8_t KEY_Scan(void)
   // KEY1_RC2_SetDigitalMode() ;
  //  KEY1_RC2_SetDigitalInput() ;
 	key.read = _KEY_ALL_OFF; //0x1F 
-
-
-	
-	if(KEY1_RC2_GetValue() == 0)
+   if(KEY1_RC2_GetValue() == 0)
 	{
 		
         key.read &= ~0x01; // 0x1f & 0xfe =  0x1E
@@ -201,12 +198,6 @@ void RunCommand(void)
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
 	    		  return ;
             	}
-            	if(DOCHARGE()){
-            	   Motor_Stop();
-	    		   BLINK_LED_OFF();
-	    		   cmd_t.gCmd_KeyNum=0;//continuce Up run
-	    		   return ;
-            	}
             	if(Top_Position()){
                     Motor_Stop();
 	    		    BLINK_LED_OFF();
@@ -227,12 +218,6 @@ void RunCommand(void)
 	    		  BLINK_LED_OFF();
 	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
 	    		  return ;
-            	}
-            	if(DOCHARGE()){
-            	   Motor_Stop();
-	    		   BLINK_LED_OFF();
-	    		   cmd_t.gCmd_KeyNum=2;//continuce Down run
-	    		   return ;
             	}
             	if(Bottom_Position()){
                     Motor_Stop();

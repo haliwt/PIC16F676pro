@@ -16,26 +16,20 @@ void main(void)
 
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
-
-  
-    
-		 
-  	while(1)
+    while(1)
   	{
-   	  
-          keyValue = KEY_Scan()	;
-        //  CheckMode(keyValue);
-        //   RunCommand();
-         //  POWER_LED_ON();
-		
-#if 0
-      if(blink_t.blink_LedFrequency==0)
+   	      docharging = DOCHARGE_GetValue() ;
+          if(docharging == 1){
+            keyValue = KEY_Scan()	;
+            CheckMode(keyValue);
+            RunCommand();
             POWER_LED_ON();
-      else{
-        POWER_LED_OFF();
-        
-       }
-#endif 
+          }
+          else{
+            Motor_Stop();
+          }
+		
+
     }
 }
 

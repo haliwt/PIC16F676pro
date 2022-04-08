@@ -3,11 +3,25 @@
 #include "../../main.h"
 
 
-#define MOTOR_CW_SetHigh()		(PORTCbits.RC0 = 1)
-#define MOTOR_CW_SetLow()       (PORTCbits.RC0 =0 )
 
-#define MOTOR_CCW_SetHigh()     (PORTCbits.RC1=1)
-#define MOTOR_CCW_SetLow()		(PORTCbits.RC1=0)
+#define MOTOR_CW_RC0_SetDigitalInput()    do { TRISCbits.TRISC0 = 1; } while(0)
+#define MOTOR_CW_RC0_SetDigitalOutput()   do { TRISCbits.TRISC0 = 0; } while(0)
+
+#define MOTOR_CW_RC0_SetAnalogMode()      do { ANSELbits.ANS4 = 1; } while(0)
+#define MOTOR_CW_RC0_SetDigitalMode()     do { ANSELbits.ANS4 = 0; } while(0)
+
+
+#define MOTOR_CW_RC0_SetHigh()		do { PORTCbits.RC0 = 1;} while(0)
+#define MOTOR_CW_RC0_SetLow()       do { PORTCbits.RC0 = 0;} while(0)
+
+#define MOTOR_CCW_RC1_SetDigitalInput()    do { TRISCbits.TRISC1 = 1; } while(0)
+#define MOTOR_CCW_RC1_SetDigitalOutput()   do { TRISCbits.TRISC1 = 0; } while(0)
+
+#define MOTOR_CCW_RC1_SetAnalogMode()      do { ANSELbits.ANS5 = 1; } while(0)
+#define MOTOR_CCW_RC1_SetDigitalMode()     do { ANSELbits.ANS5 = 0; } while(0)
+
+#define MOTOR_CCW_RC1_SetHigh()     do { PORTCbits.RC1 = 1 ;} while(0)
+#define MOTOR_CCW_RC1_SetLow()		do { PORTCbits.RC1 = 0 ;} while(0)
 
 
 void Motor_Init(void);

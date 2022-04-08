@@ -2,10 +2,11 @@
 #define __SENSOR_H_
 #include "../../main.h"
 
-#define TOP_POS()  		(PORTAbits.RA2)
-#define BOTTOM_POS()   	(PORTAbits.RA1)
-#define DOCHARGE()      (PORTAbits.RA0)
-#define CLAMPHAND()      (PORTAbits.RA5)
+
+#define TOP_POS_GetValue()  		 PORTAbits.RA2
+#define BOTTOM_POS_GetValue()   	 PORTAbits.RA1
+#define DOCHARGE_GetValue()          PORTAbits.RA0
+#define CLAMPHAND_GetValue()         PORTAbits.RA5
 
 
 void SENSOR_Init(void);

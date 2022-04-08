@@ -75,6 +75,7 @@ typedef struct _CMD{
    unsigned char gCmd_RunState;
    unsigned char topPos;
    unsigned char bottomPos;
+   unsigned char handPos;
    
 }CMD_T;
 

@@ -154,7 +154,15 @@ void CheckMode(unsigned char keyvalue)
 				
 				cmd_t.gCmd_KeyNum = 3;
 				cmd_t.topPos=0;
-				
+			    
+			}
+			if(cmd_t.handPos ==1){
+				if(Clamp_Hand()==1){
+				 cmd_t.gCmd_KeyNum = 3;
+				}
+				else{
+				  cmd_t.handPos=0;
+				}
 			}
             if(cmd_t.gCmd_KeyNum  ==1){
            		cmd_t.gCmd = MotorUp; //state is ?
@@ -214,6 +222,7 @@ void RunCommand(void)
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
+	    		  cmd_t.handPos=1;
 	    		  cmd_t.gCmd=MotorStop;
 	    		  
             	}
@@ -238,6 +247,7 @@ void RunCommand(void)
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
+	    		  cmd_t.handPos=1;
 	    		  cmd_t.gCmd=MotorStop;
 	    		  
             	}

@@ -19,7 +19,8 @@ void (*TMR0_InterruptHandler)(void);
 ************************************************************************/
 void TMR0_Initialize(void)
 {
-   OPTION_REGbits.PSA =0;
+    //OPTION_REGbits.nRAPU =0;
+	OPTION_REGbits.PSA =0;
     OPTION_REGbits.T0CS = 0; //Timer0 is timer
     OPTION_REGbits.PS0 = 1;
 	OPTION_REGbits.PS1 = 0;

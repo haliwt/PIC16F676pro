@@ -129,7 +129,8 @@ void TMR1_SetInterruptHandler(void (* InterruptHandler)(void)){
 void TMR1_DefaultInterruptHandler(void){
     // add your TMR1 interrupt custom code
     // or set custom function using TMR1_SetInterruptHandler()
-}
+}
+
 
 
 
@@ -137,6 +138,7 @@ void TMR1_APP_Fun(void)
 {
      static uint16_t it;
 	 it++;
+	 
 	 
 
 

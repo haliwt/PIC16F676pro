@@ -297,9 +297,8 @@ void RunCommand(void)
 
 			break;
 		}
-}
-
-    else if(cmd_t.gCmd_Power ==PowerOff){
+	}
+	else if(cmd_t.gCmd_Power ==PowerOff){
 
     	        Motor_Stop();
 	    		POWER_LED_OFF();

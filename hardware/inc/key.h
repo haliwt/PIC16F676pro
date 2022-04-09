@@ -78,6 +78,7 @@ typedef struct _CMD{
    unsigned char handPos;
    unsigned char motorRun;
    unsigned char mtorDir; //Up =0; down = 1;
+   unsigned char taskTime;
    
 }CMD_T;
 

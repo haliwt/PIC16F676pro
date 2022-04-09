@@ -245,7 +245,7 @@ void RunCommand(void)
 				    cmd_t.mtorDir =0; //up =0;
 				    cmd_t.gCmd_KeyNum = 1;
 				    Motor_CCW_Run();
-	    		//	BLINK_LED_Fun();
+	    			BLINK_LED_Fun();
 	    	 }
 			break;
 
@@ -274,7 +274,7 @@ void RunCommand(void)
 				    cmd_t.mtorDir =1;
 					cmd_t.gCmd_KeyNum = 3;
 	    			Motor_CW_Run();
-	    			//BLINK_LED_Fun();
+	    			BLINK_LED_Fun();
 	    		}
 
 

@@ -3,27 +3,28 @@
 
 volatile uint8_t timer0ReloadVal;
 void (*TMR0_InterruptHandler)(void);
-/***************************************************************
+/**********************************************************************
 *
 *Functin Name: void TIMER0_Init(void)
-*Funciton : timer0 is 1ms ,Timer0 overflow is need timer times 
-*           Timer0 overflow = 256 * prescaler * (__XTAL_FREQ / 4)= 256 * 4 * 1us = 1024us = 1.024ms
+*Funciton : timer0 is 10ms ,Timer0 overflow is need timer times 
+*           Timer0 overflow = 256 * prescaler * (__XTAL_FREQ / 4)-1
+					= 256 * 4 * 0.01s -1 = 1024us = 1.024ms
 *           TMR0 = [256-(__XTAL-FREQ/4)/prescaler * Timer0 overflow(s)]
 *				 =(256 - (4MHz/4us)/4 * 0.001s) = (256 - 250)=6-1=5
 *           Tim is need timer ,explame 1000us -unit us
 *           Freq = system clock frequency is = 4MHz 
-*           prescale = 2,4,16,64,128,256 
-*           TMR0 = 256-[(Tim*Freq)/(4*precals)]=256-((1000 * 4)/())-1
+*           prescale = 2,4,8,16,32,64,128,256 
+*           TMR0 = 256-[(Tim*Freq)/(4*precals)]=256-((10000 * 4)/(4*64))-1=99
 *
-***************************************************************/
+************************************************************************/
 void TMR0_Initialize(void)
 {
    OPTION_REGbits.PSA =0;
     OPTION_REGbits.T0CS = 0; //Timer0 is timer
     OPTION_REGbits.PS0 = 1;
 	OPTION_REGbits.PS1 = 0;
-	OPTION_REGbits.PS2 = 0;
-    TMR0 = 5;
+	OPTION_REGbits.PS2 = 1;
+    TMR0 = 99;
     
     //interrupt 
     INTCONbits.T0IE = 1; //timer0 interrupt
@@ -61,7 +62,7 @@ void TMR0_ISR(void)
     INTCONbits.TMR0IF = 0;
 
     //TMR0 = timer0ReloadVal;
-    TMR0 = 5;
+    TMR0 = 99;
 
     // ticker function call;
     // ticker is 1 -> Callback function gets called every time this ISR executes
@@ -93,7 +94,7 @@ void TMR0_DefaultInterruptHandler(void){
  * Function Name:void TMR0_APP
  * 
  * _Fun(void)
- * Function : 1ms interrupt onece 
+ * Function : 10ms interrupt onece 
  * 
 ****************************************************************/
 void TMR0_APP_Fun(void)
@@ -101,33 +102,21 @@ void TMR0_APP_Fun(void)
    static uint16_t it,zt,jt;
    
    it++;
-   if(it>499){ //500ms
+   if(it>99){ //1s
    
       it=0;
       zt++;
-      if(zt < 3){
+      if(zt==1){
           blink_t.blink_LedFrequency=0;
-      }
-      else if( zt >=3 && zt < 5){
-          blink_t.blink_LedFrequency=1;
-          
       }
       else {
-          blink_t.blink_LedFrequency=0;
-          zt=0;
+
+		  blink_t.blink_LedFrequency=1;
+		  zt=0;
+          
       }
-      if(motor_t.motorSet ==1){
-          jt++;
-          if(jt >99){
-              jt=0;
-              motor_t.motorTimers ++;
-
-          }
-
-      }
-
-      
-    }
+     
+   }
 }
 
 

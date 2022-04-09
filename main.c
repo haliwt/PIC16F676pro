@@ -6,8 +6,10 @@ void main(void)
      
      uint8_t keyValue,docharging;
      SYSTEM_Initialize();
-     KEY_Init();
+    
      TMR0_Initialize();
+	 TMR1_Initialize();
+	 KEY_Init();
      Motor_Init();
      SENSOR_Init();
      BLINK_POWER_LED_Init();

@@ -28,10 +28,10 @@ void TMR1_Initialize(void)
     //Set the Timer to the options selected in the GUI
 
     //TMR1H : TMR1L = 65410; 
-    TMR1H = 0x19;
+    TMR1H = 0xff;
 
     //TMR1L 48; 
-    TMR1L = 0x8D;
+    TMR1L = 0x82;
 
     // Clearing IF flag before enabling the interrupt.
     PIR1bits.TMR1IF = 0;
@@ -99,7 +99,12 @@ void TMR1_ISR(void)
 
     // Clear the TMR1 interrupt flag
     PIR1bits.TMR1IF = 0;
-    TMR1_WriteTimer(timer1ReloadVal);
+    //TMR1_WriteTimer(65410);
+     //TMR1H : TMR1L = 65410; 
+    TMR1H = 0xff;
+
+    //TMR1L 48; 
+    TMR1L = 0x82;
 
     // ticker function call;
     // ticker is 1 -> Callback function gets called everytime this ISR executes
@@ -109,6 +114,8 @@ void TMR1_ISR(void)
 void TMR1_CallBack(void)
 {
     // Add your custom callback code here
+     TMR1_InterruptHandler=  TMR1_APP_Fun;
+	
     if(TMR1_InterruptHandler)
     {
         TMR1_InterruptHandler();
@@ -122,4 +129,16 @@ void TMR1_SetInterruptHandler(void (* InterruptHandler)(void)){
 void TMR1_DefaultInterruptHandler(void){
     // add your TMR1 interrupt custom code
     // or set custom function using TMR1_SetInterruptHandler()
+}
+
+
+
+void TMR1_APP_Fun(void)
+{
+     static uint16_t it;
+	 it++;
+	 
+
+
+
 }

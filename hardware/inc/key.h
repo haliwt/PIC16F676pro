@@ -98,6 +98,7 @@ enum runCmd{
   Top_Pos    =0x08,
   Bottom_Pos = 0x09,
   ClampHand  = 0x0A,
+  TempStop  = 0x0B,
   
 
 };

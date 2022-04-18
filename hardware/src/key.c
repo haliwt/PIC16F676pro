@@ -1,15 +1,42 @@
 #include "../../hardware/inc/key.h"
 #include "../../main.h"
 
+#define   uint unsigned int
 key_types key;
 CMD_T cmd_t;
+
+
+uint  ReadADC_VoltageValue( void);
 void KEY_Init(void)
 {
-	//ANSELbits.ANS6= 0; //digital  I/O
-	KEY1_RC2_SetDigitalMode() ;
-    //TRISCbits.TRISC2 = 1; //as input GPIO
-   KEY1_RC2_SetDigitalInput() ;
+	ANSEL=0X40;             //RC2 AN6配置为模拟输入引脚
+	TRISCbits.TRISC2 =1;   //input 
 }
+
+/**************************************************************************
+ *
+ *    Function Name: void Voltage_Test(void)
+ *    Function: ADC 
+ * 
+ * 
+**************************************************************************/
+uint  ReadADC_VoltageValue(void)
+{
+         uint cTemp;
+
+         //DelayXms(10);
+		ADCON0=0B10011001;//0X9D;           //选择ＡＮ6 通道
+                                //转换结果右对齐
+                                //选择ＶＤＤ作为参考电压
+         __delay_ms(2);
+         ADCON0bits.GO_DONE = 1;           //启动ＡＤ转换
+         while(ADCON0bits.GO_DONE == 1);   //等待转换完成
+         cTemp  = ADRESH;       //读取ＡＤ转换结果高位
+         cTemp &= 0x03;
+         cTemp <<= 8;           //
+         cTemp += ADRESL;       //读取ＡＤ转换低８位并加上高位
+         return(cTemp);         //返回ＡＤ转换结果    
+ }
 
 uint8_t KEY_Scan(void)
 {
@@ -17,10 +44,9 @@ uint8_t KEY_Scan(void)
  // KEY1_RC2_SetDigitalMode() ;
  // KEY1_RC2_SetDigitalInput() ;
 	key.read = _KEY_ALL_OFF; //0x1F 
-   if(KEY1_RC2_GetValue() == 0)
+   if(ReadADC_VoltageValue() < 1024 )
 	{
-		
-        key.read &= ~0x01; // 0x1f & 0xfe =  0x1E
+		key.read &= ~0x01; // 0x1f & 0xfe =  0x1E
 	}
 	
 	

@@ -9,7 +9,7 @@ void main(void)
      static uint8_t pwon=0;
      SYSTEM_Initialize();
     
-     TMR0_Initialize();
+    // TMR0_Initialize();
 	 TMR1_Initialize();
 	 KEY_Init();
      Motor_Init();
@@ -22,23 +22,17 @@ void main(void)
     INTERRUPT_PeripheralInterruptEnable();
     while(1)
   	{
-   	     if(pwon ==2){
-            pwon++;
-           PORTCbits.RC3=0; //off
-           PORTCbits.RC4 =0; //off
-           PORTCbits.RC5 =0 ; //led off 
-        }
-
-        docharging = DOCHARGE_RA0_GetValue();
+   	     
+          docharging = DOCHARGE_RA0_GetValue();
        
-          if(docharging == 0){
+         // if(docharging == 1){
             keyValue = KEY_Scan()	;
             CheckMode(keyValue);
             RunCommand();
-          }
-          else{
-            Motor_Stop();
-          }
+         // }
+         // else{
+         //   Motor_Stop();
+         // }
  
 
     }

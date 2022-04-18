@@ -41,33 +41,25 @@ void  BLINK_LED_Fun(void)
 
 void BLINK_LED_OFF(void)
 {
+    PORTCbits.RC3=0; //off
+    PORTCbits.RC4 =0; //off
+    PORTCbits.RC5 =0 ; //led off 
 
-  BLINK_LED1_RC5_SetHigh() ;
-  BLINK_LED2_RC4_SetHigh()  ;
 }
 void BLINK_LED_ON(void)
 {
   
-  //BLINK_LED1_RC5_SetHigh() ;
-  //BLINK_LED2_RC4_SetHigh()  ;
-   BLINK_LED1_RC5_SetLow() ;
-   BLINK_LED2_RC4_SetLow()  ;
+  
 }
 
 void POWER_LED_ON(void)
 {
-
-   //POWER_LED = 1;
-  // POWER_LED_RC3_SetHigh();
-    POWER_LED_RC3_SetLow()  ;
+   PORTCbits.RC3=1; //
 
 }
 void POWER_LED_OFF(void)
 {
-
-    //POWER_LED = 0;
-    //POWER_LED_RC3_SetLow()  ;
-    POWER_LED_RC3_SetHigh(); 
+    PORTCbits.RC3=0; //off
 
 }
 

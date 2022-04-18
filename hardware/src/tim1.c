@@ -137,9 +137,24 @@ void TMR1_DefaultInterruptHandler(void){
 void TMR1_APP_Fun(void)
 {
      static uint16_t it;
+     static uint8_t zt;
 	 it++;
-	 
-	 
+	
+   if(it>999){ //1s
+   
+      it=0;
+      zt++;
+      if(zt==1){
+          blink_t.blink_LedFrequency=0;
+      }
+      else {
+
+		  blink_t.blink_LedFrequency=1;
+		  zt=0;
+          
+      }
+     
+   }
 
 
 

@@ -9,9 +9,11 @@ CMD_T cmd_t;
 uint  ReadADC_VoltageValue( void);
 void KEY_Init(void)
 {
-	WPU=0X00;               //???????
-    ANSEL=0X40;             //RC2 AN6配置为模拟输入引脚
-	TRISCbits.TRISC2 =1;   //input 
+	              //??????? 
+    ANSELbits.ANS6=0;
+    TRISCbits.TRISC2=1;
+   
+    
 }
 
 /**************************************************************************
@@ -45,7 +47,7 @@ uint8_t KEY_Scan(void)
  // KEY1_RC2_SetDigitalMode() ;
  // KEY1_RC2_SetDigitalInput() ;
 	key.read = _KEY_ALL_OFF; //0x1F 
-   if(ReadADC_VoltageValue() < 1024 )
+   if(KEY1_RC2_GetValue() ==0 )
 	{
 		key.read &= ~0x01; // 0x1f & 0xfe =  0x1E
 	}
@@ -70,7 +72,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) // adjust key be down 
 			{
-				if(++key.on_time> 500) //1000  0.5us
+				if(++key.on_time> 1000) //1000  0.5us
 				{
 					key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01, com = 0x0E ^ 0x1f = 0x11
 					key.on_time = 0;
@@ -90,7 +92,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) //again adjust key if be pressed down 
 			{
-				if(++key.on_time>5000)// 10000 long key be down
+				if(++key.on_time>10000)// 10000 long key be down
 				{
 					
 					key.value = key.value|0x80; //key.value = 0x01 | 0x80  =0x81  

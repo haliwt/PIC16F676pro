@@ -20,11 +20,12 @@ void main(void)
 
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
+    TMR1_StartTimer();
     while(1)
   	{
    	     
+	    			
           docharging = DOCHARGE_RA0_GetValue();
-       
          // if(docharging == 1){
             keyValue = KEY_Scan()	;
             CheckMode(keyValue);

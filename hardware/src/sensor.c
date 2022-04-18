@@ -59,13 +59,13 @@ uint8_t Do_Charge(void)
 uint8_t Clamp_Hand(void)
 {
 	
-	if(CLAMPHAND_RA5_GetValue()==1){ //clamp hand
-    	return 1;
-    }
-    else{
+   if(CLAMPHAND_RA5_GetValue()==1){ //clamp hand
     	return 0;
     }
+    else{
+    	return 1;
+    }
 
-    return 0;
+  
 
 }

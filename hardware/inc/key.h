@@ -111,7 +111,7 @@ unsigned char  KEY_Scan(void);
 void CheckMode(unsigned char keyvalue);
 void RunCommand(void);
 
-
+//uint8_t  ReadADC_VoltageValue( void);
 
 
 

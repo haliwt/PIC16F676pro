@@ -14,13 +14,13 @@
 #include "hardware/inc/interrupt.h"
 #include "hardware/inc/led.h"
 #include "hardware/inc/key.h"
-#include "hardware/inc/tim0.h"
+//#include "hardware/inc/tim0.h"
 #include "hardware/inc/sensor.h"
 #include "hardware/inc/system.h"
 #include "hardware/inc/motor.h"
 #include "hardware/inc/tim1.h"
 //#include "tim1.h"
-
+#define _XTAL_FREQ 4000000    
 #define uint8_t             unsigned char 
 #define int8_t              unsigned int 
 #define uint16_t            unsigned short 

@@ -6,13 +6,17 @@ BLINK blink_t;
 
 void  BLINK_POWER_LED_Init(void)
 {
-    TRISC = 0b000100;
+    //TRISC = 0b000100;
     //POWER_LED_RC3_SetDigitalMode();
     ANSELbits.ANS7 = 0; //digital I/O
+    
+     TRISCbits.TRISC3 =0 ;
+ TRISCbits.TRISC4= 0;
+ TRISCbits.TRISC5 =0 ;
 
-    PORTCbits.RC3=1; //off
-    PORTCbits.RC4 =1; //off
-    PORTCbits.RC5 =1 ; //led off 
+    PORTCbits.RC3=0; //off
+    PORTCbits.RC4 =0; //off
+    PORTCbits.RC5 =0 ; //led off 
 
 }
 void  BLINK_LED_Fun(void)

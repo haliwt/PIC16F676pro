@@ -1,10 +1,12 @@
 #include "main.h"
-#pragma config FOSC = 0x4, WDTE = 0x0, PWRTE = 0x1, MCLRE = 0x0, BOREN = 0x1, CP = 0x1, CPD = 0x1
+//__CONFIG(0x01B4); 
+#pragma config FOSC = 0x4, WDTE = 0x0, PWRTE = 0x1, MCLRE = 0x0, BOREN = 0x0, CP = 0x1, CPD = 0x1
 
 void main(void)
 {
      
      uint8_t keyValue,docharging;
+     static uint8_t pwon=0;
      SYSTEM_Initialize();
     
      TMR0_Initialize();
@@ -20,8 +22,15 @@ void main(void)
     INTERRUPT_PeripheralInterruptEnable();
     while(1)
   	{
-   	      docharging = DOCHARGE_RA0_GetValue();
-          
+   	     if(pwon ==2){
+            pwon++;
+           PORTCbits.RC3=0; //off
+           PORTCbits.RC4 =0; //off
+           PORTCbits.RC5 =0 ; //led off 
+        }
+
+        docharging = DOCHARGE_RA0_GetValue();
+       
           if(docharging == 0){
             keyValue = KEY_Scan()	;
             CheckMode(keyValue);
@@ -30,7 +39,7 @@ void main(void)
           else{
             Motor_Stop();
           }
-		
+ 
 
     }
 }

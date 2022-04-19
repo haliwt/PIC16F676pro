@@ -23,9 +23,10 @@ void main(void)
     TMR1_StartTimer();
     while(1)
   	{
+       
         keyValue = KEY_Scan()	;
         CheckMode(keyValue);
-         Do_Charge();
+        Do_Charge();
         RunCommand();
         if(cmd_t.gCmd_Power ==PowerOn){
 				POWER_LED_ON();

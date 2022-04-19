@@ -63,7 +63,7 @@ typedef  struct  _state_
  }state;
 }key_types;
 
-extern key_types key;
+key_types key;
 
 typedef struct _CMD{
 
@@ -81,10 +81,11 @@ typedef struct _CMD{
    unsigned char taskTime;
    unsigned char keyPressed;
    unsigned char gDoCharging;
+   unsigned char gDoKey ;
    
 }CMD_T;
 
-extern CMD_T cmd_t;
+CMD_T cmd_t;
 
 enum runCmd{
 

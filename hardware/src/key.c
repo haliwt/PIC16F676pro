@@ -2,8 +2,8 @@
 #include "../../main.h"
 
 #define   uint unsigned int
-key_types key;
-CMD_T cmd_t;
+//key_types key;
+//CMD_T cmd_t;
 
 
 
@@ -157,7 +157,7 @@ void CheckMode(unsigned char keyvalue)
 				
            	}
            	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum >=4){
-
+                POWER_LED_ON();
                 cmd_t.gCmd = TempStop;//MotorStop;
 				if(cmd_t.gCmd_KeyNum==4)cmd_t.gCmd_KeyNum=0;
 				

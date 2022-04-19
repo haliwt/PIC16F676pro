@@ -136,13 +136,28 @@ void TMR1_DefaultInterruptHandler(void){
 
 void TMR1_APP_Fun(void)
 {
-     static uint16_t it,jt;
-     static uint8_t zt,wt;
-	 it++;
+     static uint16_t jt;
+     static uint8_t zt,wt,n,nt,it;
 	 jt++;
+    //  n++;
+    //  if(n>9){
+    //     n++;
+    //     nt++;
+    //     if(nt==1){
+    //         cmd_t.gDoKey =1;
+    //     }
+    //     else{
+    //         nt=0;
+    //         cmd_t.gDoKey =0;
+    //     }
+
+
+    //  }
+
     if(jt>499){
       jt=0;
       wt++;
+      it++;
       if(wt==1){
           cmd_t.gDoCharging =0;
       }
@@ -150,25 +165,25 @@ void TMR1_APP_Fun(void)
         wt=0;
          cmd_t.gDoCharging =1;
       }
+      if(it==2){
+          it=0;
+           zt++;
+          if(zt==1){
+          blink_t.blink_LedFrequency=0;
+         }
+        else {
+
+            blink_t.blink_LedFrequency=1;
+            zt=0;
+
+        }
+      
+      }
 
     }
 
 
-   if(it>999){ //1s
    
-      it=0;
-      zt++;
-      if(zt==1){
-          blink_t.blink_LedFrequency=0;
-      }
-      else {
-
-		  blink_t.blink_LedFrequency=1;
-		  zt=0;
-          
-      }
-     
-   }
 
 
 

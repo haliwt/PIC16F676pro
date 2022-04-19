@@ -57,12 +57,12 @@ uint8_t Clamp_Hand(void)
 uint8_t Do_Charge(void)
 {
 
-  if(Charging_VoltageValue() ==0){ //charing
-      return 1;
+  if(Charging_VoltageValue()  > 150  ){ //charing 0.9V
+      return 0;
   }
   else{ //dont't charging state
 
-  	return 0;
+  	return 1;
   }
 }
 
@@ -81,7 +81,7 @@ static unsigned int Charging_VoltageValue(void)
 		ADCON0=0B10000001;      //选择ＡＮ0 通道
                                 //转换结果右对齐
                                 //选择ＶＤＤ作为参考电压
-         __delay_ms(1);
+         __delay_ms(2);
          ADCON0bits.GO_DONE = 1;           //启动ＡＤ转换
          while(ADCON0bits.GO_DONE == 1);   //等待转换完成
          cTemp  = ADRESH;       //读取ＡＤ转换结果高位

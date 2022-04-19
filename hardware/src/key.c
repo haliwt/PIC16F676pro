@@ -150,9 +150,9 @@ void CheckMode(unsigned char keyvalue)
              currKey = cmd_t.gCmd_KeyState;
 
 		   
-			if(Clamp_Hand()==1){
+			if(Clamp_Hand()==1 || Do_Charge() == 1){
 
-				cmd_t.gCmd = MotorStop; //clamp
+				cmd_t.gCmd = TempStop; //clamp
 				
 			}
 		    else{
@@ -235,23 +235,30 @@ void RunCommand(void)
 
         switch(cmd_t.gCmd){
             case TempStop:
+                if(currstop != laststop){
+					currstop = laststop;
+				    cmd_t.gCmd_KeyState++;
+	                cmd_t.gCmd_RunState = TempStop;
+					 POWER_LED_ON();
+					BLINK_LED_OFF();
+					cmd_t.gCmd_Power = PowerOn;
+				}
+                Motor_Stop();
                 POWER_LED_ON();
-                 Motor_Stop();
-               
-	    		BLINK_LED_OFF();
+	    	
                 
                 break;
 		  
               case MotorUp :
 		   	    laststop++;
-            	if(Clamp_Hand()){
+            	if(Clamp_Hand()|| Do_Charge() == 1){
 	              Motor_Stop();
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
 	    		  cmd_t.mtorDir =0;
 	    		  cmd_t.handPos=1;
-	    		  cmd_t.gCmd=MotorStop;
+	    		  cmd_t.gCmd=TempStop;
 	    		  
             	}
                else if(Top_Position()){
@@ -259,7 +266,7 @@ void RunCommand(void)
 	    		      BLINK_LED_OFF();
 					 cmd_t.gCmd_KeyState++;
 					cmd_t.topPos=1;
-					cmd_t.gCmd=MotorStop;
+					cmd_t.gCmd=TempStop;
 	    	   }
 			   else{
 					cmd_t.gCmd_KeyState++;
@@ -274,14 +281,14 @@ void RunCommand(void)
 
             case MotorDown:
 				laststop++;
-            	if(Clamp_Hand()){
+            	if(Clamp_Hand() ||Do_Charge() == 1){
 	              Motor_Stop();
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
 	    		  cmd_t.mtorDir =1;
 	    		  cmd_t.handPos=1;
-	    		  cmd_t.gCmd=MotorStop;
+	    		  cmd_t.gCmd=TempStop;
 	    		  
             	}
             	else if(Bottom_Position()){
@@ -289,7 +296,7 @@ void RunCommand(void)
 	    		    BLINK_LED_OFF();
 					cmd_t.gCmd_KeyState++;
 					cmd_t.bottomPos=1;
-					cmd_t.gCmd=MotorStop;
+					cmd_t.gCmd=TempStop;
 	    		}
 	    		else{
 					cmd_t.gCmd_KeyState++;

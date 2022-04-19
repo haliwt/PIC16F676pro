@@ -30,6 +30,7 @@ uint8_t Top_Position(void)
 }
 uint8_t Bottom_Position(void)
 {
+	
 	if(BOTTOM_POS_RA1_GetValue()==1){
        return 1;
 	}
@@ -56,8 +57,9 @@ uint8_t Clamp_Hand(void)
 
 uint8_t Do_Charge(void)
 {
-
-  if(Charging_VoltageValue()  > 150  ){ //charing 0.9V
+	ANSELbits.ANS0 = 1; //analog I/O
+	  TRISAbits.TRISA0 = 1 ; //as input  GPIO --
+  if(Charging_VoltageValue()  > 150  ){ //charing 0.9V =184
       return 0;
   }
   else{ //dont't charging state

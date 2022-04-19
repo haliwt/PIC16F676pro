@@ -3,7 +3,7 @@
 
 #define   uint unsigned int
 //key_types key;
-//CMD_T cmd_t;
+CMD_T cmd_t;
 
 
 
@@ -20,9 +20,7 @@ void KEY_Init(void)
 uint8_t KEY_Scan(void)
 {
   uint8_t  reval = 0;
- // KEY1_RC2_SetDigitalMode() ;
- // KEY1_RC2_SetDigitalInput() ;
-	key.read = _KEY_ALL_OFF; //0x1F 
+  key.read = _KEY_ALL_OFF; //0x1F 
    if(KEY1_RC2_GetValue() ==0 )
 	{
 		key.read &= ~0x01; // 0x1f & 0xfe =  0x1E
@@ -141,37 +139,49 @@ void CheckMode(unsigned char keyvalue)
          case 0x01: // run up or down
           if( cmd_t.gCmd_Power ==PowerOn ){
        
-          if(currKey != cmd_t.gCmd_KeyState){
-             currKey = cmd_t.gCmd_KeyState;
+			if(currKey != cmd_t.gCmd_KeyState){
+				currKey = cmd_t.gCmd_KeyState;
+				cmd_t.gmotor_upStep=0;
+				 	cmd_t.gCmd_KeyNum ++;
 
-		     cmd_t.gCmd_KeyNum ++;
+				if(cmd_t.bottomPos ==1){
 
-			if(cmd_t.gCmd_KeyNum  ==1){
-                 POWER_LED_ON();
+					cmd_t.gCmd_KeyNum =1;
+					cmd_t.bottomPos=0;
+				}
+				if(cmd_t.topPos ==1){
+					
+					cmd_t.gCmd_KeyNum = 3;
+					cmd_t.topPos=0;
+				    
+				}
+		    
+			
+            if(cmd_t.gCmd_KeyNum  ==1){
            		cmd_t.gCmd = MotorUp; //state is ?
 				
            	}
-           	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum >=4){
-                POWER_LED_ON();
-                cmd_t.gCmd = TempStop;//MotorStop;
+           	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum ==4){
+
+                cmd_t.gCmd = TempStop;
 				if(cmd_t.gCmd_KeyNum==4)cmd_t.gCmd_KeyNum=0;
 				
 			}
            	else if(cmd_t.gCmd_KeyNum==3){
-                 POWER_LED_ON();
+
                 cmd_t.gCmd = MotorDown;
-                	
 				
            	}
-		   }
-         }
+			}
+		}
+         
         
         break;
 
     	case 0x81: //long times ke be presed power On
     	   powkey ++;
     	   if(powkey ==1){
-			    TMR1_StartTimer();
+			    
             	POWER_LED_ON();
             	cmd_t.gCmd_Power =PowerOn;
 		        cmd_t.gCmd = 0;//MotorStop;
@@ -179,7 +189,7 @@ void CheckMode(unsigned char keyvalue)
             }
             else{
                powkey =0;
-            	TMR1_StopTimer();
+            	//TMR1_StopTimer();
 	            cmd_t.gCmd_Power =PowerOff;
 			    if(cmd_t.gCmd_KeyNum == 1){
 				   cmd_t.gCmd_KeyNum=0;
@@ -204,50 +214,49 @@ void CheckMode(unsigned char keyvalue)
 void RunCommand(void)
 {
 
-    static uint8_t currstop = 0xff,laststop=0;
+    
 	if(cmd_t.gCmd_Power == PowerOn ){
 
         switch(cmd_t.gCmd){
             case TempStop:
              
 				cmd_t.gmotor_upStep=0;	
-				cmd_t.gCmd_KeyState++;
+				cmd_t.gCmd_KeyState ++;
                 Motor_Stop();
-                POWER_LED_ON();
 	    	    BLINK_LED_OFF();
                 
             break;
 		  
-              case MotorUp :
-		   	    
+              case MotorUp : //CW cmd_t.mtorDir =0;
 				 if(Clamp_Hand()){
-	            
-	    		
-				  cmd_t.gCmd_KeyState++;
+	              cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
 	    		  cmd_t.mtorDir =0;
 	    		  cmd_t.handPos=1;
 	    		  cmd_t.gCmd=TempStop;
 	    		  
             	}
-               else if(Top_Position()){
+               else if(Top_Position()){ //RA2 
                    
-					 cmd_t.gCmd_KeyState++;
+					cmd_t.gCmd_KeyState++;
 					cmd_t.topPos=1;
+					cmd_t.mtorDir =1;
 					cmd_t.gCmd=TempStop;
 	    	   }
 			   else{
+				    cmd_t.mtorDir =1;
 					cmd_t.gCmd_KeyState++;
 	    			
-			   		cmd_t.motorRun =0; //up =0
-				    cmd_t.mtorDir =0; //up =0;
+				  
 				    cmd_t.gCmd_KeyNum = 1;
 				 //   Motor_CCW_Run();
 	    			BLINK_LED_Fun();
+					Motor_CCW_Run();//Motor_CW_Run();
 	    	 }
 			break;
 
-            case MotorDown:
+            case MotorDown: //cmd_t.mtorDir =1;
+			    
 			     if(Clamp_Hand()){	
 	           
 				  cmd_t.gCmd_KeyState++;
@@ -261,15 +270,17 @@ void RunCommand(void)
                   
 					cmd_t.gCmd_KeyState++;
 					cmd_t.bottomPos=1;
+					cmd_t.mtorDir =0;
 					cmd_t.gCmd=TempStop;
 	    		}
 	    		else{
 					cmd_t.gCmd_KeyState++;
 					cmd_t.motorRun =1;
-				    cmd_t.mtorDir =1;
 					cmd_t.gCmd_KeyNum = 3;
 	    			//Motor_CW_Run();
 	    			BLINK_LED_Fun();
+					//Motor_CCW_Run();
+                    Motor_CW_Run();
 	    		}
 
 

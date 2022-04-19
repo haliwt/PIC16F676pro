@@ -18,7 +18,7 @@ void SENSOR_Init(void)
 uint8_t Top_Position(void)
 {
 	//TRISAbits.TRISA2 = 1 ; 
-   if(TOP_POS_RA2_GetValue()==1){ //reach top position
+   if(TOP_POS_RA2_GetValue()==0){ //reach top position
 
    	  return 1;
    } 
@@ -31,7 +31,7 @@ uint8_t Top_Position(void)
 uint8_t Bottom_Position(void)
 {
 	
-	if(BOTTOM_POS_RA1_GetValue()==1){
+	if(BOTTOM_POS_RA1_GetValue()==0){
        return 1;
 	}
 	else{

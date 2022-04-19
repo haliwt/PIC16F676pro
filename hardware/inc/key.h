@@ -86,7 +86,7 @@ typedef struct _CMD{
    
 }CMD_T;
 
-CMD_T cmd_t;
+extern CMD_T cmd_t;
 
 enum runCmd{
 

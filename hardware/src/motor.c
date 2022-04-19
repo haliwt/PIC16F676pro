@@ -19,6 +19,7 @@ void Motor_Init(void)
 
 void Motor_CW_Run(void)
 {
+	MotorStart_CW_Step();
 	MOTOR_CW_RC0_SetHigh();	
 	MOTOR_CCW_RC1_SetLow();
 	
@@ -26,7 +27,8 @@ void Motor_CW_Run(void)
 
 void Motor_CCW_Run(void)
 {
-	MOTOR_CW_RC0_SetLow();	
+	MotorStart_CCW_Step();
+    MOTOR_CW_RC0_SetLow();	
 	
 	MOTOR_CCW_RC1_SetHigh();
 	
@@ -85,14 +87,14 @@ void Motor_Stop(void)
 void MotorRunCommand(void)
 {
     if(cmd_t.gCmd_Power == PowerOn){
-		if(cmd_t.gCmd==MotorUp){
+		if(cmd_t.gCmd==MotorUp){ //SESONR RA2 
 			MotorStart_CW_Step();
 			Motor_CW_Run();
 		}
-		else if(cmd_t.gCmd==MotorDown){
+	if(cmd_t.gCmd==MotorDown){ //SENSOR RA1
 			MotorStart_CCW_Step();
 			Motor_CCW_Run();	
-		}
+	}
 		
   }
 }

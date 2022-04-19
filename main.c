@@ -20,24 +20,22 @@ void main(void)
 
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
-    
+    TMR1_StartTimer();
     while(1)
   	{
-       
-      //   Motor_CW_Run();
-     //    BLINK_LED_Fun();
-      //   POWER_LED_ON();
-#if 1       
-       if(cmd_t.gCmd==TempStop)
-      {
+   
+	  if(cmd_t.gCmd==TempStop)
+        {
          POWER_LED_ON(); 
-      }
+       }
+      
         keyValue = KEY_Scan();
         CheckMode(keyValue);
         Do_Charge();
         RunCommand();
-        MotorRunCommand();
-#endif 
+       // MotorRunCommand();
+
+
     }
 }
 

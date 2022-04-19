@@ -5,9 +5,9 @@
 void main(void)
 {
      
-     uint8_t keyValue,docharging;
-     static uint8_t pwon=0;
-     SYSTEM_Initialize();
+     uint8_t keyValue;
+ 
+   //  SYSTEM_Initialize();
     
     // TMR0_Initialize();
 	 TMR1_Initialize();
@@ -24,14 +24,16 @@ void main(void)
     while(1)
   	{
        
-        keyValue = KEY_Scan()	;
+      //   Motor_CW_Run();
+     //    BLINK_LED_Fun();
+      //   POWER_LED_ON();
+#if 1       
+        keyValue = KEY_Scan();
         CheckMode(keyValue);
         Do_Charge();
         RunCommand();
-        if(cmd_t.gCmd_Power ==PowerOn){
-				POWER_LED_ON();
-		  }
-      
+        MotorRunCommand();
+#endif 
     }
 }
 

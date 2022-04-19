@@ -108,11 +108,11 @@ void TMR0_APP_Fun(void)
       it=0;
       zt++;
       if(zt==1){
-          blink_t.blink_LedFrequency=0;
+          blink_LedFrequency=0;
       }
       else {
 
-		  blink_t.blink_LedFrequency=1;
+		  blink_LedFrequency=1;
 		  zt=0;
           
       }

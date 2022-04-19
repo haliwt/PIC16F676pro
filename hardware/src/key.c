@@ -183,7 +183,7 @@ void CheckMode(unsigned char keyvalue)
             }
             else{
                powkey =0;
-            	POWER_LED_OFF();
+            	
 	            cmd_t.gCmd_Power =PowerOff;
 			    if(cmd_t.gCmd_KeyNum == 1){
 				   cmd_t.gCmd_KeyNum=0;
@@ -216,7 +216,7 @@ void RunCommand(void)
         switch(cmd_t.gCmd){
             case TempStop:
              
-					
+				cmd_t.gmotor_upStep=0;	
 				cmd_t.gCmd_Power = PowerOn;
 				
 				cmd_t.gCmd_KeyState++;
@@ -228,10 +228,9 @@ void RunCommand(void)
 		  
               case MotorUp :
 		   	    
-            	//if(Clamp_Hand()|| Do_Charge() == 1){
 				 if(Clamp_Hand()){
-	              Motor_Stop();
-	    		  BLINK_LED_OFF();
+	            
+	    		
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
 	    		  cmd_t.mtorDir =0;
@@ -240,8 +239,7 @@ void RunCommand(void)
 	    		  
             	}
                else if(Top_Position()){
-                      Motor_Stop();
-	    		      BLINK_LED_OFF();
+                   
 					 cmd_t.gCmd_KeyState++;
 					cmd_t.topPos=1;
 					cmd_t.gCmd=TempStop;
@@ -252,17 +250,14 @@ void RunCommand(void)
 			   		cmd_t.motorRun =0; //up =0
 				    cmd_t.mtorDir =0; //up =0;
 				    cmd_t.gCmd_KeyNum = 1;
-				    Motor_CCW_Run();
+				 //   Motor_CCW_Run();
 	    			BLINK_LED_Fun();
 	    	 }
 			break;
 
             case MotorDown:
-			
-            	//if(Clamp_Hand() ||Do_Charge() == 1){
-				  if(Clamp_Hand()){	
-	              Motor_Stop();
-	    		  BLINK_LED_OFF();
+			     if(Clamp_Hand()){	
+	           
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
 	    		  cmd_t.mtorDir =1;
@@ -271,8 +266,7 @@ void RunCommand(void)
 	    		  
             	}
             	else if(Bottom_Position()){
-                    Motor_Stop();
-	    		    BLINK_LED_OFF();
+                  
 					cmd_t.gCmd_KeyState++;
 					cmd_t.bottomPos=1;
 					cmd_t.gCmd=TempStop;
@@ -282,22 +276,14 @@ void RunCommand(void)
 					cmd_t.motorRun =1;
 				    cmd_t.mtorDir =1;
 					cmd_t.gCmd_KeyNum = 3;
-	    			Motor_CW_Run();
+	    			//Motor_CW_Run();
 	    			BLINK_LED_Fun();
 	    		}
 
 
             break;
 
-            case MotorStop:
-				
-	          cmd_t.gCmd_RunState = MotorStop;
-				
-				
-			    BLINK_LED_OFF();
-             	Motor_Stop();
-	    		
-			break;
+   
 
 			default:
 
@@ -309,7 +295,7 @@ void RunCommand(void)
 	else if(cmd_t.gCmd_Power ==PowerOff){
                
     	        Motor_Stop();
-               
+               cmd_t.gmotor_upStep=0;
 	    		 POWER_LED_OFF();
               
 	    		BLINK_LED_OFF();
@@ -318,5 +304,6 @@ void RunCommand(void)
 
 
 }
+
 
 

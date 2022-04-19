@@ -24,15 +24,7 @@
 #define MOTOR_CCW_RC1_SetLow()		do { PORTCbits.RC1 = 0 ;} while(0)
 
 
-typedef struct _MOTOR_{
 
-  unsigned char 	motorSet;
-  unsigned int   motorTimers ; 
-
-
-}MOTOR_T;
-
-extern MOTOR_T motor_t;
 
 
 void Motor_Init(void);
@@ -40,7 +32,7 @@ void Motor_CCW_Run(void);
 void Motor_CW_Run(void);
 
 void Motor_Stop(void);
-
+void MotorRunCommand(void);
 
 
 #endif 

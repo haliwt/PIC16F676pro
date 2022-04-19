@@ -4,8 +4,7 @@
 void SYSTEM_Initialize(void)
 {
 
-   
-    OSCILLATOR_Initialize();
+  OSCILLATOR_Initialize();
    
 }
 

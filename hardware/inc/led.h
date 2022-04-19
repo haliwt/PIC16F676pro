@@ -36,21 +36,13 @@
 #define uchar           unsigned char 
 #define uint            unsigned int 
 #define ulong            unsigned long 
-//typedef unsigned long   uint32_t;
 
 
 
-typedef struct _BLINK_LED{
-
-    uchar  blink_LedFrequency;
-    
 
 
-}BLINK;
 
-extern BLINK blink_t;
-
-
+uchar blink_LedFrequency;
 
 void  BLINK_POWER_LED_Init(void);
 void  BLINK_LED_Fun(void);

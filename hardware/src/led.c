@@ -1,6 +1,6 @@
 #include "../../hardware/inc/led.h"
 #include "../../main.h"
-BLINK blink_t;
+
 
 
 
@@ -21,7 +21,7 @@ void  BLINK_POWER_LED_Init(void)
 }
 void  BLINK_LED_Fun(void)
 {
-    if(blink_t.blink_LedFrequency ==0){
+    if(blink_LedFrequency ==0){
     
       // BLINK_LED1 = 0;
         BLINK_LED1_RC5_SetLow() ;

@@ -136,10 +136,24 @@ void TMR1_DefaultInterruptHandler(void){
 
 void TMR1_APP_Fun(void)
 {
-     static uint16_t it;
-     static uint8_t zt;
+     static uint16_t it,jt;
+     static uint8_t zt,wt;
 	 it++;
-	
+	 jt++;
+    if(jt>499){
+      jt=0;
+      wt++;
+      if(wt==1){
+          cmd_t.gDoCharging =0;
+      }
+      else{
+        wt=0;
+         cmd_t.gDoCharging =1;
+      }
+
+    }
+
+
    if(it>999){ //1s
    
       it=0;

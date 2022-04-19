@@ -30,7 +30,7 @@ void SENSOR_Init(void);
 
 unsigned char Top_Position(void);
 unsigned char  Bottom_Position(void);
-unsigned char  Do_Charge(void);
+void Do_Charge(void);
 unsigned char  Clamp_Hand(void);
 
 

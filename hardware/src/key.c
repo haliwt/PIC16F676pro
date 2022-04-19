@@ -139,7 +139,7 @@ void CheckMode(unsigned char keyvalue)
     switch(keyvalue){
         
         case 0:
-			cmd_t.gCmd_KeyState++;
+			
             return ;
         break;
 
@@ -149,35 +149,14 @@ void CheckMode(unsigned char keyvalue)
           if(currKey != cmd_t.gCmd_KeyState){
              currKey = cmd_t.gCmd_KeyState;
 
-		   
-			if(Clamp_Hand()==1 || Do_Charge() == 1){
+		     cmd_t.gCmd_KeyNum ++;
 
-				cmd_t.gCmd = TempStop; //clamp
-				
-			}
-		    else{
-	           	cmd_t.gCmd_KeyNum ++;
-
-				if(cmd_t.bottomPos ==1){
-
-					 POWER_LED_ON();
-                    cmd_t.gCmd_KeyNum =1;
-					cmd_t.bottomPos=0;
-				}
-				if(cmd_t.topPos ==1){
-					 POWER_LED_ON();
-					cmd_t.gCmd_KeyNum = 3;
-					cmd_t.topPos=0;
-				    
-				}
-		    
-			
-            if(cmd_t.gCmd_KeyNum  ==1){
+			if(cmd_t.gCmd_KeyNum  ==1){
                  POWER_LED_ON();
            		cmd_t.gCmd = MotorUp; //state is ?
 				
            	}
-           	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum ==4){
+           	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum >=4){
 
                 cmd_t.gCmd = TempStop;//MotorStop;
 				if(cmd_t.gCmd_KeyNum==4)cmd_t.gCmd_KeyNum=0;
@@ -186,11 +165,12 @@ void CheckMode(unsigned char keyvalue)
            	else if(cmd_t.gCmd_KeyNum==3){
                  POWER_LED_ON();
                 cmd_t.gCmd = MotorDown;
+                	
 				
            	}
 		   }
          }
-        }
+        
         break;
 
     	case 0x81: //long times ke be presed power On
@@ -220,7 +200,7 @@ void CheckMode(unsigned char keyvalue)
     	default:
           //  Motor_Stop();
     	  //  BLINK_LED_OFF();
-    		cmd_t.gCmd_KeyState=0;
+    	//	cmd_t.gCmd_KeyState=0;
     	break;
 
     }
@@ -235,23 +215,21 @@ void RunCommand(void)
 
         switch(cmd_t.gCmd){
             case TempStop:
-                if(currstop != laststop){
-					currstop = laststop;
-				    cmd_t.gCmd_KeyState++;
-	                cmd_t.gCmd_RunState = TempStop;
-					 POWER_LED_ON();
-					BLINK_LED_OFF();
-					cmd_t.gCmd_Power = PowerOn;
-				}
+             
+					
+				cmd_t.gCmd_Power = PowerOn;
+				
+				cmd_t.gCmd_KeyState++;
                 Motor_Stop();
                 POWER_LED_ON();
-	    	
+	    	    BLINK_LED_OFF();
                 
-                break;
+            break;
 		  
               case MotorUp :
-		   	    laststop++;
-            	if(Clamp_Hand()|| Do_Charge() == 1){
+		   	    
+            	//if(Clamp_Hand()|| Do_Charge() == 1){
+				 if(Clamp_Hand()){
 	              Motor_Stop();
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
@@ -280,8 +258,9 @@ void RunCommand(void)
 			break;
 
             case MotorDown:
-				laststop++;
-            	if(Clamp_Hand() ||Do_Charge() == 1){
+			
+            	//if(Clamp_Hand() ||Do_Charge() == 1){
+				  if(Clamp_Hand()){	
 	              Motor_Stop();
 	    		  BLINK_LED_OFF();
 				  cmd_t.gCmd_KeyState++;
@@ -311,13 +290,11 @@ void RunCommand(void)
             break;
 
             case MotorStop:
-				if(currstop != laststop){
-					currstop = laststop;
-				    cmd_t.gCmd_KeyState++;
-	                cmd_t.gCmd_RunState = MotorStop;
-					BLINK_LED_OFF();
-				}
-			
+				
+	          cmd_t.gCmd_RunState = MotorStop;
+				
+				
+			    BLINK_LED_OFF();
              	Motor_Stop();
 	    		
 			break;

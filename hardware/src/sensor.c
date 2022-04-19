@@ -55,16 +55,21 @@ uint8_t Clamp_Hand(void)
 
 }
 
-uint8_t Do_Charge(void)
+void Do_Charge(void)
 {
-	ANSELbits.ANS0 = 1; //analog I/O
-	  TRISAbits.TRISA0 = 1 ; //as input  GPIO --
-  if(Charging_VoltageValue()  > 150  ){ //charing 0.9V =184
-      return 0;
-  }
-  else{ //dont't charging state
-
-  	return 1;
+   if(cmd_t.gDoCharging==1){
+	
+		ANSELbits.ANS0 = 1; //analog I/O
+		TRISAbits.TRISA0 = 1 ; //as input  GPIO --
+	if(Charging_VoltageValue()  < 150  ){ //charing 0.9V =184
+		if(cmd_t.gCmd_Power ==PowerOn){
+          cmd_t.gCmd = TempStop;
+		   POWER_LED_ON();
+		}
+		else{
+		    cmd_t.gCmd=	MotorStop;
+		}
+	}
   }
 }
 
@@ -83,7 +88,7 @@ static unsigned int Charging_VoltageValue(void)
 		ADCON0=0B10000001;      //选择ＡＮ0 通道
                                 //转换结果右对齐
                                 //选择ＶＤＤ作为参考电压
-         __delay_ms(2);
+         __delay_ms(1);
          ADCON0bits.GO_DONE = 1;           //启动ＡＤ转换
          while(ADCON0bits.GO_DONE == 1);   //等待转换完成
          cTemp  = ADRESH;       //读取ＡＤ转换结果高位

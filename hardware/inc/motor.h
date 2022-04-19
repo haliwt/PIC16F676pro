@@ -34,5 +34,5 @@ void Motor_CW_Run(void);
 void Motor_Stop(void);
 void MotorRunCommand(void);
 
-
+void Motor_TempStop(void);
 #endif 

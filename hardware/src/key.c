@@ -222,7 +222,7 @@ void RunCommand(void)
              
 				cmd_t.gmotor_upStep=0;	
 				cmd_t.gCmd_KeyState ++;
-                Motor_Stop();
+                Motor_TempStop();//Motor_Stop();
 	    	    BLINK_LED_OFF();
                 
             break;
@@ -256,32 +256,37 @@ void RunCommand(void)
 			break;
 
             case MotorDown: //cmd_t.mtorDir =1;
-			    
-			     if(Clamp_Hand()){	
-	           
-				  cmd_t.gCmd_KeyState++;
-	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
-	    		  cmd_t.mtorDir =1;
-	    		  cmd_t.handPos=1;
-	    		  cmd_t.gCmd=TempStop;
-	    		  
-            	}
-            	else if(Bottom_Position()){
-                  
-					cmd_t.gCmd_KeyState++;
-					cmd_t.bottomPos=1;
-					cmd_t.mtorDir =0;
-					cmd_t.gCmd=TempStop;
-	    		}
-	    		else{
-					cmd_t.gCmd_KeyState++;
-					cmd_t.motorRun =1;
-					cmd_t.gCmd_KeyNum = 3;
-	    			//Motor_CW_Run();
-	    			BLINK_LED_Fun();
+			    cmd_t.gCmd_KeyState++;
+			     BLINK_LED_Fun();
 					//Motor_CCW_Run();
                     Motor_CW_Run();
-	    		}
+				 cmd_t.gCmd_KeyNum = 3;
+				//  if(Clamp_Hand()){	
+	           
+				//   cmd_t.gCmd_KeyState++;
+	    		//   cmd_t.gCmd_KeyNum=2;//continuce Down run
+	    		//   cmd_t.mtorDir =1;
+	    		//   cmd_t.handPos=1;
+	    		//   cmd_t.gCmd=TempStop;
+	    		  
+            	// }
+            	// else if(Bottom_Position()){
+                  
+				// 	cmd_t.gCmd_KeyState++;
+				// 	cmd_t.bottomPos=1;
+				// 	cmd_t.mtorDir =0;
+				// 	cmd_t.gCmd=TempStop;
+	    		// }
+	    		// else{
+
+				// 	cmd_t.gCmd_KeyState++;
+				// 	cmd_t.motorRun =1;
+				// 	cmd_t.gCmd_KeyNum = 3;
+	    		// 	//Motor_CW_Run();
+	    		// 	BLINK_LED_Fun();
+				// 	//Motor_CCW_Run();
+                //     Motor_CW_Run();
+	    		// }
 
 
             break;
@@ -294,14 +299,15 @@ void RunCommand(void)
 			break;
 		}
 	}
-
 	else if(cmd_t.gCmd_Power ==PowerOff){
                
     	        Motor_Stop();
-               cmd_t.gmotor_upStep=0;
+               	cmd_t.gmotor_upStep=0;
 	    		POWER_LED_OFF();
               
 	    		BLINK_LED_OFF();
+				cmd_t.gCmd_KeyNum = 0;
+				 cmd_t.gCmd_KeyState=0xfe;
 				
     }
 

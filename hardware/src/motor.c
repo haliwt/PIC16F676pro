@@ -34,6 +34,12 @@ void Motor_CCW_Run(void)
 	
 }
 
+void Motor_TempStop(void)
+{
+    MOTOR_CW_RC0_SetHigh(); //brake
+    MOTOR_CCW_RC1_SetHigh(); //brake
+}
+
 
 void Motor_Stop(void)
 {

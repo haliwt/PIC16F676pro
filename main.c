@@ -23,7 +23,9 @@ void main(void)
     TMR1_StartTimer();
     while(1)
   	{
-   
+    
+        
+#if 1
 	  if(cmd_t.gCmd==TempStop)
         {
          POWER_LED_ON(); 
@@ -34,7 +36,7 @@ void main(void)
         Do_Charge();
         RunCommand();
        // MotorRunCommand();
-
+#endif 
 
     }
 }

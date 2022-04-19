@@ -100,13 +100,13 @@ void TMR1_StopTimer(void);
     }
     </code>
 */
-unsigned short TMR1_ReadTimer(void);
+
 
 
 void TMR1_WriteTimer(unsigned short timerVal);
 
 
-void TMR1_Reload(void);
+
 
 void TMR1_ISR(void);
 

@@ -85,18 +85,15 @@ void Motor_Stop(void)
 void MotorRunCommand(void)
 {
     if(cmd_t.gCmd_Power == PowerOn){
-	if(cmd_t.gCmd==MotorUp){
-		MotorStart_CW_Step();
-        Motor_CW_Run();
-    }
-	else if(cmd_t.gCmd==MotorDown){
-		MotorStart_CCW_Step();
-	   Motor_CCW_Run();	
-	}
-	else{
-	   Motor_Stop();
-	   POWER_LED_ON();
-	}
+		if(cmd_t.gCmd==MotorUp){
+			MotorStart_CW_Step();
+			Motor_CW_Run();
+		}
+		else if(cmd_t.gCmd==MotorDown){
+			MotorStart_CCW_Step();
+			Motor_CCW_Run();	
+		}
+		
   }
 }
 

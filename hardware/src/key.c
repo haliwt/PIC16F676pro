@@ -138,12 +138,7 @@ void CheckMode(unsigned char keyvalue)
 
     switch(keyvalue){
         
-        case 0:
-			
-            return ;
-        break;
-
-    	case 0x01: // run up or down
+         case 0x01: // run up or down
           if( cmd_t.gCmd_Power ==PowerOn ){
        
           if(currKey != cmd_t.gCmd_KeyState){
@@ -176,6 +171,7 @@ void CheckMode(unsigned char keyvalue)
     	case 0x81: //long times ke be presed power On
     	   powkey ++;
     	   if(powkey ==1){
+			    TMR1_StartTimer();
             	POWER_LED_ON();
             	cmd_t.gCmd_Power =PowerOn;
 		        cmd_t.gCmd = 0;//MotorStop;
@@ -183,7 +179,7 @@ void CheckMode(unsigned char keyvalue)
             }
             else{
                powkey =0;
-            	
+            	TMR1_StopTimer();
 	            cmd_t.gCmd_Power =PowerOff;
 			    if(cmd_t.gCmd_KeyNum == 1){
 				   cmd_t.gCmd_KeyNum=0;
@@ -198,9 +194,7 @@ void CheckMode(unsigned char keyvalue)
     	break;
 
     	default:
-          //  Motor_Stop();
-    	  //  BLINK_LED_OFF();
-    	//	cmd_t.gCmd_KeyState=0;
+  
     	break;
 
     }
@@ -217,8 +211,6 @@ void RunCommand(void)
             case TempStop:
              
 				cmd_t.gmotor_upStep=0;	
-				cmd_t.gCmd_Power = PowerOn;
-				
 				cmd_t.gCmd_KeyState++;
                 Motor_Stop();
                 POWER_LED_ON();
@@ -296,7 +288,7 @@ void RunCommand(void)
                
     	        Motor_Stop();
                cmd_t.gmotor_upStep=0;
-	    		 POWER_LED_OFF();
+	    		POWER_LED_OFF();
               
 	    		BLINK_LED_OFF();
 				

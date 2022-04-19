@@ -144,6 +144,7 @@ void TMR1_APP_Fun(void)
       jt=0;
       wt++;
       it++;
+   
       if(wt==1){
           cmd_t.gDoCharging =0;
       }

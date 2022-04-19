@@ -25,15 +25,15 @@ void main(void)
   	{
    	     
 	    			
-          docharging = DOCHARGE_RA0_GetValue();
-         // if(docharging == 1){
+        // docharging =Do_Charge();
+         //if(docharging == 0){
             keyValue = KEY_Scan()	;
             CheckMode(keyValue);
             RunCommand();
-         // }
-         // else{
+        // }
+        // else{
          //   Motor_Stop();
-         // }
+       //   }
  
 
     }

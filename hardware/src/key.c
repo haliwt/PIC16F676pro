@@ -6,7 +6,7 @@ key_types key;
 CMD_T cmd_t;
 
 
-uint  ReadADC_VoltageValue( void);
+
 void KEY_Init(void)
 {
 	              //??????? 
@@ -16,30 +16,6 @@ void KEY_Init(void)
     
 }
 
-/**************************************************************************
- *
- *    Function Name: void Voltage_Test(void)
- *    Function: ADC 
- * 
- * 
-**************************************************************************/
-uint  ReadADC_VoltageValue(void)
-{
-         uint cTemp;
-
-         //DelayXms(10);
-		ADCON0=0B10011011;//0X9D;           //选择ＡＮ6 通道
-                                //转换结果右对齐
-                                //选择ＶＤＤ作为参考电压
-         __delay_ms(1);
-         ADCON0bits.GO_DONE = 1;           //启动ＡＤ转换
-         while(ADCON0bits.GO_DONE == 1);   //等待转换完成
-         cTemp  = ADRESH;       //读取ＡＤ转换结果高位
-         cTemp &= 0x03;
-         cTemp <<= 8;           //
-         cTemp += ADRESL;       //读取ＡＤ转换低８位并加上高位
-         return(cTemp);         //返回ＡＤ转换结果    
- }
 
 uint8_t KEY_Scan(void)
 {
@@ -184,11 +160,12 @@ void CheckMode(unsigned char keyvalue)
 
 				if(cmd_t.bottomPos ==1){
 
-					cmd_t.gCmd_KeyNum =1;
+					 POWER_LED_ON();
+                    cmd_t.gCmd_KeyNum =1;
 					cmd_t.bottomPos=0;
 				}
 				if(cmd_t.topPos ==1){
-					
+					 POWER_LED_ON();
 					cmd_t.gCmd_KeyNum = 3;
 					cmd_t.topPos=0;
 				    
@@ -196,6 +173,7 @@ void CheckMode(unsigned char keyvalue)
 		    
 			
             if(cmd_t.gCmd_KeyNum  ==1){
+                 POWER_LED_ON();
            		cmd_t.gCmd = MotorUp; //state is ?
 				
            	}
@@ -206,7 +184,7 @@ void CheckMode(unsigned char keyvalue)
 				
 			}
            	else if(cmd_t.gCmd_KeyNum==3){
-
+                 POWER_LED_ON();
                 cmd_t.gCmd = MotorDown;
 				
            	}

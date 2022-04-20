@@ -46,7 +46,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) // adjust key be down 
 			{
-				if(++key.on_time> 1000) //1000  0.5us
+				if(++key.on_time> 800) //1000  0.5us
 				{
 					key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01, com = 0x0E ^ 0x1f = 0x11
 					key.on_time = 0;
@@ -66,7 +66,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) //again adjust key if be pressed down 
 			{
-				if(++key.on_time>8000)// 10000 long key be down
+				if(++key.on_time>6000)// 10000 long key be down
 				{
 					
 					key.value = key.value|0x80; //key.value = 0x01 | 0x80  =0x81  
@@ -150,7 +150,6 @@ void CheckMode(unsigned char keyvalue)
 					cmd_t.bottomPos=0;
 				}
 				if(cmd_t.topPos ==1){
-					
 					cmd_t.gCmd_KeyNum = 3;
 					cmd_t.topPos=0;
 				    
@@ -222,7 +221,7 @@ void RunCommand(void)
              
 				if(cmd_t.handPos==1){
 	    	       cmd_t.handPos=0;
-	    	        Motor_CCW_Run();
+	    	        Motor_CW_Run();  //Move Up
 	    	        __delay_ms(100);
 	    	       
 	    	    }
@@ -234,7 +233,7 @@ void RunCommand(void)
                 
             break;
 		  
-              case MotorUp : //CCW -UP cmd_t.mtorDir =0;
+              case MotorUp : //CW -UP cmd_t.mtorDir =0;
 				 if(Clamp_Hand()){
 	              cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
@@ -254,7 +253,7 @@ void RunCommand(void)
 			   else{
 					cmd_t.gCmd_KeyState++;
 	    			cmd_t.gCmd_KeyNum = 1;
-				      Motor_CCW_Run();
+				    Motor_CW_Run();
 	    			 BLINK_LED_Fun();
 					
 	    	 }
@@ -284,7 +283,7 @@ void RunCommand(void)
 	    			cmd_t.gCmd_KeyState++;
 	    			cmd_t.gCmd_KeyNum = 3;
 			        BLINK_LED_Fun();
-			          Motor_CW_Run();
+			        Motor_CCW_Run();
 					
                    
 				}
@@ -306,9 +305,8 @@ void RunCommand(void)
     	        Motor_Stop();
                	cmd_t.gmotor_upStep=0;
 	    		POWER_LED_OFF();
-              
-	    		BLINK_LED_OFF();
-				//cmd_t.gCmd_KeyNum = 0;
+                BLINK_LED_OFF();
+			//	cmd_t.gCmd_KeyNum = 0;
 				 cmd_t.gCmd_KeyState=0xfe;
 				cmd_t.gCmd=0xf0;
     }

@@ -13,8 +13,8 @@
 
 
 
-#define POWER_LED_RC3_SetHigh()            do { PORTCbits.RC3 = 1; } while(0)
-#define POWER_LED_RC3_SetLow()             do { PORTCbits.RC3 = 0; } while(0)
+#define POWER_LED_ON()              do { PORTCbits.RC3 = 1; } while(0)
+#define POWER_LED_OFF()             do { PORTCbits.RC3 = 0; } while(0)
 
 
 
@@ -35,8 +35,6 @@ void  BLINK_LED_Fun(void);
 void BLINK_LED_OFF(void);
 void BLINK_LED_ON(void);
 
-void POWER_LED_ON(void);
-void POWER_LED_OFF(void);
 
 
 

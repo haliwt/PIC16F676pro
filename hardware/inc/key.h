@@ -68,18 +68,12 @@ key_types key;
 typedef struct _CMD{
 
    unsigned char gCmd;
-   unsigned char gCmd_Charged;
    unsigned char gCmd_Power;
    unsigned char gCmd_KeyState;
    unsigned char gCmd_KeyNum;
-   unsigned char gCmd_RunState;
    unsigned char topPos;
    unsigned char bottomPos;
    unsigned char handPos;
-   unsigned char motorRun;
-   unsigned char mtorDir; //Up =0; down = 1;
-   unsigned char taskTime;
-   unsigned char keyPressed;
    unsigned char gDoCharging;
    unsigned char gDoKey ;
    unsigned char gmotor_upStep;

@@ -46,7 +46,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) // adjust key be down 
 			{
-				if(++key.on_time> 800) //1000  0.5us
+				if(++key.on_time> 400) //1000  0.5us
 				{
 					key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01, com = 0x0E ^ 0x1f = 0x11
 					key.on_time = 0;
@@ -66,7 +66,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) //again adjust key if be pressed down 
 			{
-				if(++key.on_time>6000)// 10000 long key be down
+				if(++key.on_time>8000)// 10000 long key be down
 				{
 					
 					key.value = key.value|0x80; //key.value = 0x01 | 0x80  =0x81  
@@ -78,7 +78,7 @@ uint8_t KEY_Scan(void)
 			}
 			else if(key.read == _KEY_ALL_OFF)  // loose hand 
 				{
-					if(++key.off_time>30) //don't holding key dithering
+					if(++key.off_time>20) //30 don't holding key dithering
 					{
 						key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01
 						
@@ -100,7 +100,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == _KEY_ALL_OFF)
 			{
-				if(++key.off_time>100)
+				if(++key.off_time>50) //100
 				{
 					key.state   = start;
                   
@@ -137,7 +137,7 @@ void CheckMode(unsigned char keyvalue)
     switch(keyvalue){
         
          case 0x01: // run up or down
-          if( cmd_t.gCmd_Power ==PowerOn ){
+          if( cmd_t.gCmd_Power ==PowerOn  && cmd_t.gDoKey==0){
        
 			if(currKey != cmd_t.gCmd_KeyState){
 				currKey = cmd_t.gCmd_KeyState;
@@ -181,7 +181,7 @@ void CheckMode(unsigned char keyvalue)
     	   powkey ++;
     	   if(powkey ==1){
 			    
-            	POWER_LED_ON();
+            	//POWER_LedOn_SetHigh() ;//POWER_LED_ON();
             	cmd_t.gCmd_Power =PowerOn;
 		        cmd_t.gCmd = 0;//MotorStop;
 		        
@@ -229,7 +229,7 @@ void RunCommand(void)
 				cmd_t.gCmd_KeyState ++;
                 Motor_Stop();//Motor_Stop();
 	    	    BLINK_LED_OFF();
-
+             
                 
             break;
 		  
@@ -237,7 +237,6 @@ void RunCommand(void)
 				 if(Clamp_Hand()){
 	              cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
-	    		  cmd_t.mtorDir =0;
 	    		  cmd_t.handPos=0;
 	    		  cmd_t.gCmd=TempStop;
 	    		  
@@ -246,7 +245,6 @@ void RunCommand(void)
                    
 					cmd_t.gCmd_KeyState++;
 					cmd_t.topPos=1;
-					cmd_t.mtorDir =1;
 					cmd_t.gCmd_KeyNum = 2;
 					cmd_t.gCmd=TempStop;
 	    	   }
@@ -266,7 +264,6 @@ void RunCommand(void)
 	           
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
-	    		  cmd_t.mtorDir =1;
 	    		  cmd_t.handPos=1;
 	    		  cmd_t.gCmd=TempStop;
 	    		  
@@ -275,12 +272,11 @@ void RunCommand(void)
                   
 					cmd_t.gCmd_KeyState++;
 					cmd_t.bottomPos=1;
-					cmd_t.mtorDir =0;
 					cmd_t.gCmd_KeyNum = 0;
 					cmd_t.gCmd=TempStop;
 	    		}
 	    		else{
-	    			cmd_t.gCmd_KeyState++;
+					cmd_t.gCmd_KeyState++;
 	    			cmd_t.gCmd_KeyNum = 3;
 			        BLINK_LED_Fun();
 			        Motor_CCW_Run();
@@ -292,9 +288,7 @@ void RunCommand(void)
 
             break;
 
-   
-
-			default:
+   			default:
 
 
 			break;

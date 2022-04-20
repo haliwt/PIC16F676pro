@@ -33,13 +33,22 @@ uint8_t Clamp_Hand(void)
 
 void Do_Charge(void)
 {
-   if(cmd_t.gDoCharging==1 && cmd_t.gCmd_Power == PowerOn && cmd_t.gCmd !=TempStop ){
+   if(cmd_t.gDoCharging==1 && cmd_t.gCmd_Power == PowerOn){
 	   
 		ANSELbits.ANS0 = 1; //analog I/O
 		TRISAbits.TRISA0 = 1 ; //as input  GPIO --
         if(Charging_VoltageValue()  < 150  ){ //charing 0.9V =184
 		     cmd_t.gCmd = TempStop;
+             cmd_t.gDoKey =1;
+		     if(cmd_t.gCmd_KeyNum == 1)cmd_t.gCmd_KeyNum =0;
+			 else if(cmd_t.gCmd_KeyNum == 3)cmd_t.gCmd_KeyNum =2;
+			 else cmd_t.gCmd_KeyNum=0;
+			 
 		}
+        else{
+             cmd_t.gDoKey =0;
+            
+         }
 	}
   
 }

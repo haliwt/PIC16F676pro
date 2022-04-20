@@ -48,14 +48,5 @@ void BLINK_LED_OFF(void)
 }
 
 
-void POWER_LED_ON(void)
-{
-   PORTCbits.RC3=1; //
 
-}
-void POWER_LED_OFF(void)
-{
-    PORTCbits.RC3=0; //off
-
-}
 

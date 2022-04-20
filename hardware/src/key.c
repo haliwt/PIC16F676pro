@@ -3,7 +3,7 @@
 
 #define   uint unsigned int
 //key_types key;
-CMD_T cmd_t;
+//CMD_T cmd_t;
 
 
 
@@ -220,39 +220,47 @@ void RunCommand(void)
         switch(cmd_t.gCmd){
             case TempStop:
              
+				if(cmd_t.handPos==1){
+	    	       cmd_t.handPos=0;
+	    	        Motor_CCW_Run();
+	    	        __delay_ms(100);
+	    	       
+	    	    }
 				cmd_t.gmotor_upStep=0;	
 				cmd_t.gCmd_KeyState ++;
-                Motor_TempStop();//Motor_Stop();
+                Motor_Stop();//Motor_Stop();
 	    	    BLINK_LED_OFF();
+
                 
             break;
 		  
-              case MotorUp : //CW cmd_t.mtorDir =0;
+              case MotorUp : //CCW -UP cmd_t.mtorDir =0;
 				 if(Clamp_Hand()){
 	              cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
 	    		  cmd_t.mtorDir =0;
-	    		  cmd_t.handPos=1;
+	    		  cmd_t.handPos=0;
 	    		  cmd_t.gCmd=TempStop;
 	    		  
             	}
-               else if(Top_Position()){ //RA2 
+               else if(TOP_POS_RA1_GetValue()==0){ //RA2 
                    
 					cmd_t.gCmd_KeyState++;
 					cmd_t.topPos=1;
 					cmd_t.mtorDir =1;
+					cmd_t.gCmd_KeyNum = 2;
 					cmd_t.gCmd=TempStop;
 	    	   }
 			   else{
 					cmd_t.gCmd_KeyState++;
 	    			cmd_t.gCmd_KeyNum = 1;
-				    Motor_CW_Run();
-	    			BLINK_LED_Fun();
+				      Motor_CCW_Run();
+	    			 BLINK_LED_Fun();
 					
 	    	 }
 			break;
 
-            case MotorDown: //cmd_t.mtorDir =1;
+            case MotorDown: //CW- DOWN move cmd_t.mtorDir =1;
 			   
 				
 				if(Clamp_Hand()){	
@@ -264,22 +272,22 @@ void RunCommand(void)
 	    		  cmd_t.gCmd=TempStop;
 	    		  
             	}
-            	else if(BOTTOM_POS_RA1_GetValue==0){
+            	else if(BOTTOM_POS_RA2_GetValue()==0){
                   
 					cmd_t.gCmd_KeyState++;
 					cmd_t.bottomPos=1;
 					cmd_t.mtorDir =0;
+					cmd_t.gCmd_KeyNum = 0;
 					cmd_t.gCmd=TempStop;
 	    		}
 	    		else{
 	    			cmd_t.gCmd_KeyState++;
 	    			cmd_t.gCmd_KeyNum = 3;
 			        BLINK_LED_Fun();
-					Motor_CCW_Run();
+			          Motor_CW_Run();
+					
                    
-				   
-
-	    		}
+				}
 	    	
 
 
@@ -302,7 +310,7 @@ void RunCommand(void)
 	    		BLINK_LED_OFF();
 				//cmd_t.gCmd_KeyNum = 0;
 				 cmd_t.gCmd_KeyState=0xfe;
-				cmd_t.gCmd=0xff;
+				cmd_t.gCmd=0xf0;
     }
 
 

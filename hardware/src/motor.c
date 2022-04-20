@@ -34,11 +34,6 @@ void Motor_CCW_Run(void)
 	
 }
 
-void Motor_TempStop(void)
-{
-    MOTOR_CW_RC0_SetHigh(); //brake
-    MOTOR_CCW_RC1_SetHigh(); //brake
-}
 
 
 void Motor_Stop(void)
@@ -90,19 +85,5 @@ void Motor_Stop(void)
 
 }
 
-void MotorRunCommand(void)
-{
-    if(cmd_t.gCmd_Power == PowerOn){
-		if(cmd_t.gCmd==MotorUp){ //SESONR RA2 
-			MotorStart_CW_Step();
-			Motor_CW_Run();
-		}
-	if(cmd_t.gCmd==MotorDown){ //SENSOR RA1
-			MotorStart_CCW_Step();
-			Motor_CCW_Run();	
-	}
-		
-  }
-}
 
 

@@ -113,15 +113,6 @@ void TMR1_ISR(void);
 void TMR1_CallBack(void);
 
 
- void TMR1_SetInterruptHandler(void (* InterruptHandler)(void));
-
-
-extern void (*TMR1_InterruptHandler)(void);
-
-
-void TMR1_DefaultInterruptHandler(void);
-
-
 void TMR1_APP_Fun(void);
 
 

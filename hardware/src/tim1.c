@@ -43,7 +43,7 @@ void TMR1_Initialize(void)
     PIE1bits.TMR1IE = 1;
 
     // Set Default Interrupt Handler
-    TMR1_SetInterruptHandler(TMR1_DefaultInterruptHandler);
+   
 
     // T1CKPS 1:8; nT1SYNC synchronize; internal TMR1CS FOSC/4; TMR1ON enabled; 
     T1CON = 0b00110100; //0x04;
@@ -123,14 +123,14 @@ void TMR1_CallBack(void)
     }
 }
 
-void TMR1_SetInterruptHandler(void (* InterruptHandler)(void)){
-    TMR1_InterruptHandler = InterruptHandler;
-}
+//void TMR1_SetInterruptHandler(void (* InterruptHandler)(void)){
+   // TMR1_InterruptHandler = InterruptHandler;
+//}
 
-void TMR1_DefaultInterruptHandler(void){
+//void TMR1_DefaultInterruptHandler(void){
     // add your TMR1 interrupt custom code
     // or set custom function using TMR1_SetInterruptHandler()
-}
+//}
 
 
 

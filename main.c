@@ -22,10 +22,6 @@ void main(void)
     while(1)
   	{
       
-        
-#if 1
-	 
-      
         keyValue = KEY_Scan();
         CheckMode(keyValue);
         Do_Charge();
@@ -34,7 +30,7 @@ void main(void)
         {
          POWER_LED_ON(); 
         }
-#endif 
+
 
     }
 }

@@ -86,7 +86,7 @@ typedef struct _CMD{
    
 }CMD_T;
 
-extern CMD_T cmd_t;
+CMD_T cmd_t;
 
 enum runCmd{
 
@@ -115,7 +115,7 @@ unsigned char  KEY_Scan(void);
 void CheckMode(unsigned char keyvalue);
 void RunCommand(void);
 
-//uint8_t  ReadADC_VoltageValue( void);
+
 
 
 

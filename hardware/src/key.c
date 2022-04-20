@@ -66,7 +66,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) //again adjust key if be pressed down 
 			{
-				if(++key.on_time>10000)// 10000 long key be down
+				if(++key.on_time>8000)// 10000 long key be down
 				{
 					
 					key.value = key.value|0x80; //key.value = 0x01 | 0x80  =0x81  
@@ -244,49 +244,43 @@ void RunCommand(void)
 					cmd_t.gCmd=TempStop;
 	    	   }
 			   else{
-				    cmd_t.mtorDir =1;
 					cmd_t.gCmd_KeyState++;
-	    			
-				  
-				    cmd_t.gCmd_KeyNum = 1;
-				 //   Motor_CCW_Run();
+	    			cmd_t.gCmd_KeyNum = 1;
+				    Motor_CW_Run();
 	    			BLINK_LED_Fun();
-					Motor_CCW_Run();//Motor_CW_Run();
+					
 	    	 }
 			break;
 
             case MotorDown: //cmd_t.mtorDir =1;
-			    cmd_t.gCmd_KeyState++;
-			     BLINK_LED_Fun();
-					//Motor_CCW_Run();
-                    Motor_CW_Run();
-				 cmd_t.gCmd_KeyNum = 3;
-				//  if(Clamp_Hand()){	
+			   
+				
+				if(Clamp_Hand()){	
 	           
-				//   cmd_t.gCmd_KeyState++;
-	    		//   cmd_t.gCmd_KeyNum=2;//continuce Down run
-	    		//   cmd_t.mtorDir =1;
-	    		//   cmd_t.handPos=1;
-	    		//   cmd_t.gCmd=TempStop;
+				  cmd_t.gCmd_KeyState++;
+	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
+	    		  cmd_t.mtorDir =1;
+	    		  cmd_t.handPos=1;
+	    		  cmd_t.gCmd=TempStop;
 	    		  
-            	// }
-            	// else if(Bottom_Position()){
+            	}
+            	else if(BOTTOM_POS_RA1_GetValue==0){
                   
-				// 	cmd_t.gCmd_KeyState++;
-				// 	cmd_t.bottomPos=1;
-				// 	cmd_t.mtorDir =0;
-				// 	cmd_t.gCmd=TempStop;
-	    		// }
-	    		// else{
+					cmd_t.gCmd_KeyState++;
+					cmd_t.bottomPos=1;
+					cmd_t.mtorDir =0;
+					cmd_t.gCmd=TempStop;
+	    		}
+	    		else{
+	    			cmd_t.gCmd_KeyState++;
+	    			cmd_t.gCmd_KeyNum = 3;
+			        BLINK_LED_Fun();
+					Motor_CCW_Run();
+                   
+				   
 
-				// 	cmd_t.gCmd_KeyState++;
-				// 	cmd_t.motorRun =1;
-				// 	cmd_t.gCmd_KeyNum = 3;
-	    		// 	//Motor_CW_Run();
-	    		// 	BLINK_LED_Fun();
-				// 	//Motor_CCW_Run();
-                //     Motor_CW_Run();
-	    		// }
+	    		}
+	    	
 
 
             break;
@@ -306,9 +300,9 @@ void RunCommand(void)
 	    		POWER_LED_OFF();
               
 	    		BLINK_LED_OFF();
-				cmd_t.gCmd_KeyNum = 0;
+				//cmd_t.gCmd_KeyNum = 0;
 				 cmd_t.gCmd_KeyState=0xfe;
-				
+				cmd_t.gCmd=0xff;
     }
 
 

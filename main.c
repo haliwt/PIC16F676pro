@@ -8,9 +8,7 @@ void main(void)
      uint8_t keyValue;
  
    //  SYSTEM_Initialize();
-    
-    // TMR0_Initialize();
-	 TMR1_Initialize();
+    TMR1_Initialize();
 	 KEY_Init();
      Motor_Init();
      SENSOR_Init();
@@ -23,19 +21,19 @@ void main(void)
     TMR1_StartTimer();
     while(1)
   	{
-    
+      
         
 #if 1
-	  if(cmd_t.gCmd==TempStop)
-        {
-         POWER_LED_ON(); 
-       }
+	 
       
         keyValue = KEY_Scan();
         CheckMode(keyValue);
         Do_Charge();
         RunCommand();
-       // MotorRunCommand();
+        if(cmd_t.gCmd==TempStop)
+        {
+         POWER_LED_ON(); 
+        }
 #endif 
 
     }

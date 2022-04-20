@@ -4,7 +4,7 @@
 
 
 
-#define TOP_POS_RA2_SetDigitalInput()    			TRISAbits.TRISA2 = 1
+#define TOP_POS_RA2_SetDigitalInput()    		TRISAbits.TRISA2 = 1
 #define TOP_POS_RA2_SetDigitalOutput()   		TRISAbits.TRISA2 = 0
 
 #define TOP_POS_RA2_SetAnalogMode()      	    ANSELbits.ANS2 = 1
@@ -13,7 +13,8 @@
 
 #define TOP_POS_RA2_GetValue()  		 PORTAbits.RA2
 
-#define BOTTOM_POS_RA1_GetValue()   	 PORTAbits.RA1
+#define BOTTOM_POS_RA1_GetValue   	 PORTAbits.RA1
+
 #define DOCHARGE_RA0_GetValue()          PORTAbits.RA0
 
 

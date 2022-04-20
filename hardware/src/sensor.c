@@ -3,7 +3,7 @@
 static unsigned int  Charging_VoltageValue(void);
 void SENSOR_Init(void)
 {
-
+     CMCON  = 0x07;  
 	ANSELbits.ANS0 = 1; //analog I/O
 	ANSELbits.ANS1 = 0 ; //digital I/O GPIO
 	ANSELbits.ANS2 = 0;
@@ -30,8 +30,8 @@ uint8_t Top_Position(void)
 }
 uint8_t Bottom_Position(void)
 {
-	
-	if(BOTTOM_POS_RA1_GetValue()==0){
+	TRISAbits.TRISA1 = 1 ;
+	if(BOTTOM_POS_RA1_GetValue==0){
        return 1;
 	}
 	else{

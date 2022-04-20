@@ -46,7 +46,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) // adjust key be down 
 			{
-				if(++key.on_time> 400) //1000  0.5us
+				if(++key.on_time> 100) //1000  0.5us
 				{
 					key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01, com = 0x0E ^ 0x1f = 0x11
 					key.on_time = 0;
@@ -78,7 +78,7 @@ uint8_t KEY_Scan(void)
 			}
 			else if(key.read == _KEY_ALL_OFF)  // loose hand 
 				{
-					if(++key.off_time>20) //30 don't holding key dithering
+					if(++key.off_time>2) //30 don't holding key dithering
 					{
 						key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01
 						
@@ -100,7 +100,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == _KEY_ALL_OFF)
 			{
-				if(++key.off_time>50) //100
+				if(++key.off_time>5)//50 //100
 				{
 					key.state   = start;
                   
@@ -251,6 +251,7 @@ void RunCommand(void)
 			   else{
 					cmd_t.gCmd_KeyState++;
 	    			cmd_t.gCmd_KeyNum = 1;
+					dochargingFlag=0;
 				    Motor_CW_Run();
 	    			 BLINK_LED_Fun();
 					
@@ -278,6 +279,7 @@ void RunCommand(void)
 	    		else{
 					cmd_t.gCmd_KeyState++;
 	    			cmd_t.gCmd_KeyNum = 3;
+					dochargingFlag=0;
 			        BLINK_LED_Fun();
 			        Motor_CCW_Run();
 					

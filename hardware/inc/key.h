@@ -101,7 +101,7 @@ enum runCmd{
 };
 
 
-
+unsigned char dochargingFlag;
 void KEY_Init(void);
 unsigned char  KEY_Scan(void);
 

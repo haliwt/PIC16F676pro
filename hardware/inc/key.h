@@ -2,11 +2,7 @@
 #define __KEY_H_
 #include "../../main.h"
 
-#define KEY1_RC2_SetDigitalInput()    do { TRISCbits.TRISC2 = 1; } while(0)
-#define KEY1_RC2_SetDigitalOutput()   do { TRISAbits.TRISC2 = 0; } while(0)
 
-#define KEY1_RC2_SetAnalogMode()      do { ANSELbits.ANS6 = 1; } while(0)
-#define KEY1_RC2_SetDigitalMode()     do { ANSELbits.ANS6 = 0; } while(0)
 
 #define KEY1_RC2_GetValue()           PORTCbits.RC2
 
@@ -74,7 +70,6 @@ typedef struct _CMD{
    unsigned char topPos;
    unsigned char bottomPos;
    unsigned char handPos;
-   unsigned char gDoCharging;
    unsigned char gDoKey ;
    unsigned char gmotor_upStep;
    
@@ -100,7 +95,7 @@ enum runCmd{
 
 };
 
-
+unsigned char gDoCharging;
 unsigned char dochargingFlag;
 void KEY_Init(void);
 unsigned char  KEY_Scan(void);

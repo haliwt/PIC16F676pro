@@ -24,9 +24,8 @@
 void Motor_Init(void);
 void Motor_CCW_Run(void);
 void Motor_CW_Run(void);
-
 void Motor_Stop(void);
-void MotorRunCommand(void);
+
 
 
 #endif 

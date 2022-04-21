@@ -17,23 +17,13 @@
 #define POWER_LED_OFF()             do { PORTCbits.RC3 = 0; } while(0)
 
 
-
-
-#define uchar           unsigned char 
-#define uint            unsigned int 
-#define ulong            unsigned long 
-
-
-
-
-
-
-uchar blink_LedFrequency;
+unsigned char  blink_LedFrequency;
+unsigned char gTimer;
 
 void  BLINK_POWER_LED_Init(void);
 void  BLINK_LED_Fun(void);
 void BLINK_LED_OFF(void);
-void BLINK_LED_ON(void);
+
 
 
 

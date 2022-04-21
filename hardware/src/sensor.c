@@ -33,7 +33,7 @@ uint8_t Clamp_Hand(void)
 
 void Do_Charge(void)
 {
-   if(cmd_t.gDoCharging==1 && cmd_t.gCmd_Power == PowerOn){
+   if(gDoCharging==1 && cmd_t.gCmd_Power == PowerOn){
 	   
 		ANSELbits.ANS0 = 1; //analog I/O
 		TRISAbits.TRISA0 = 1 ; //as input  GPIO --

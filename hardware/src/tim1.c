@@ -1,11 +1,14 @@
 #include "../inc/tim1.h"
 
 
+
+
+
 /**
   Section: Global Variables Definitions
 */
-volatile uint16_t timer1ReloadVal;
-void (*TMR1_InterruptHandler)(void);
+//volatile uint16_t timer1ReloadVal;
+//void (*TMR1_InterruptHandler)(void);
 
 /******************************************************************************************************
 *
@@ -37,7 +40,7 @@ void TMR1_Initialize(void)
     PIR1bits.TMR1IF = 0;
 
     // Load the TMR value to reload variable
-    timer1ReloadVal=(uint16_t)((TMR1H << 8) | TMR1L);
+    //timer1ReloadVal=(uint16_t)((TMR1H << 8) | TMR1L);
 
     // Enabling TMR1 interrupt.
     PIE1bits.TMR1IE = 1;
@@ -114,13 +117,39 @@ void TMR1_ISR(void)
 
 void TMR1_CallBack(void)
 {
-    // Add your custom callback code here
-     TMR1_InterruptHandler=  TMR1_APP_Fun;
-	
-    if(TMR1_InterruptHandler)
-    {
-        TMR1_InterruptHandler();
+    static uint16_t jt;
+     static uint8_t zt,wt,it,n;
+	 jt++;
+  
+    if(jt>499){ //500ms
+      jt=0;
+      wt++;
+      it++;
+      if(wt==1){
+        gDoCharging =0;
+      }
+      else{
+        wt=0;
+         gDoCharging =1;
+      }
+      if(it==2){ //1s
+          it=0;
+          zt++;
+          if(zt==1){
+             gTimer++;
+             blink_LedFrequency=0;
+            
+         }
+        else {
+            blink_LedFrequency=1;
+            zt=0;
+        }
+          
+      
+      }
+
     }
+
 }
 
 //void TMR1_SetInterruptHandler(void (* InterruptHandler)(void)){
@@ -135,40 +164,3 @@ void TMR1_CallBack(void)
 
 
 
-void TMR1_APP_Fun(void)
-{
-     static uint16_t jt;
-     static uint8_t zt,wt,it;
-	 jt++;
-  
-    if(jt>499){
-      jt=0;
-      wt++;
-      it++;
-   
-      if(wt==1){
-          cmd_t.gDoCharging =0;
-      }
-      else{
-        wt=0;
-         cmd_t.gDoCharging =1;
-      }
-      if(it==2){
-          it=0;
-           zt++;
-          if(zt==1){
-          blink_LedFrequency=0;
-         }
-        else {
-
-            blink_LedFrequency=1;
-            zt=0;
-
-        }
-      
-      }
-
-    }
-
-
- }

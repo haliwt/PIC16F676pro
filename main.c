@@ -26,9 +26,12 @@ void main(void)
         CheckMode(keyValue);
         Do_Charge();
         RunCommand();
-        if(cmd_t.gCmd==TempStop ||cmd_t.gCmd_Power ==PowerOn )
+        if(cmd_t.gCmd==TempStop || cmd_t.gCmd_Power ==PowerOn )
         {
-         POWER_LED_ON();
+          POWER_LED_ON();
+          if(gTimer > 150){
+             cmd_t.gCmd_Power =PowerOff;
+          }
         }
 
 

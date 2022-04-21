@@ -183,7 +183,7 @@ void CheckMode(unsigned char keyvalue)
     	   if(powkey ==1){
             	cmd_t.gCmd_Power =PowerOn;
 		        cmd_t.gCmd = 0;//MotorStop;
-		        
+		        gTimer=0;
             }
             else{
                powkey =0;
@@ -295,6 +295,7 @@ void RunCommand(void)
                 BLINK_LED_OFF();
 				cmd_t.gCmd_KeyState++;
 				cmd_t.gCmd=0xf0;
+                gTimer = 0;
     }
 
 

@@ -65,7 +65,7 @@ void TMR1_StartTimer(void);
     TMR1_StopTimer();
     </code>
 */
-void TMR1_StopTimer(void);
+//void TMR1_StopTimer(void);
 
 /**
   @Summary
@@ -103,7 +103,7 @@ void TMR1_StopTimer(void);
 
 
 
-void TMR1_WriteTimer(unsigned short timerVal);
+//void TMR1_WriteTimer(unsigned short timerVal);
 
 
 
@@ -111,9 +111,6 @@ void TMR1_WriteTimer(unsigned short timerVal);
 void TMR1_ISR(void);
 
 void TMR1_CallBack(void);
-
-
-void TMR1_APP_Fun(void);
 
 
 #endif 

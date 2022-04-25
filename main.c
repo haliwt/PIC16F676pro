@@ -29,10 +29,16 @@ void main(void)
         if(cmd_t.gCmd==TempStop || cmd_t.gCmd_Power ==PowerOn )
         {
           POWER_LED_ON();
-          if(gTimer > 150){
-             cmd_t.gCmd_Power =PowerOff;
+          if(blink_LedFrequency==1){
+            if( keyValue !=0){
+                  gTimer=0;
+            }
+            if(gTimer > 150){
+                cmd_t.gCmd_Power =PowerOff;
+            }
           }
         }
+          
 
 
     }

@@ -135,8 +135,8 @@ void TMR1_CallBack(void)
       if(it==2){ //1s
           it=0;
           zt++;
-          if(zt==1){
-             gTimer++;
+          if(zt==1){ 
+             gTimer++;//2s
              blink_LedFrequency=0;
             
          }

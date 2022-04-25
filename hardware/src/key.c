@@ -158,7 +158,7 @@ void CheckMode(unsigned char keyvalue)
 			
             if(cmd_t.gCmd_KeyNum  ==1){
            		cmd_t.gCmd = MotorUp; //state is ?
-				
+				cmd_t.gmotor_upStep=0;
            	}
            	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum ==4){
 

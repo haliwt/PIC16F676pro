@@ -41,22 +41,22 @@ void Motor_Stop(void)
     MOTOR_CW_RC0_SetLow(); //brake
     MOTOR_CCW_RC1_SetLow(); //brake
 }
- void MotorStart_CW_Step(void)
+ void MotorStart_CW_Step(void)//Up 
 {
-	if(cmd_t.gmotor_upStep==0 ){//CW
+	
+     if(cmd_t.gmotor_upStep==0 ){//CW
 		cmd_t.gmotor_upStep++;
         
-       MOTOR_CW_RC0_SetHigh();	
-	   MOTOR_CCW_RC1_SetLow();
-	   __delay_ms(100);
-	   MOTOR_CW_RC0_SetLow();
-	   __delay_ms(50);
+       
+        MOTOR_CCW_RC1_SetLow();
+        
        MOTOR_CW_RC0_SetHigh();	
 	   __delay_ms(25);
 	   MOTOR_CW_RC0_SetLow();
-	   __delay_ms(15);
-	   MOTOR_CW_RC0_SetHigh();
-        
+	   __delay_ms(25);
+       MOTOR_CW_RC0_SetHigh();	
+       __delay_ms(50);
+	  
     }
 
 
@@ -70,14 +70,11 @@ void Motor_Stop(void)
       	MOTOR_CW_RC0_SetLow();	
 	
 	   MOTOR_CCW_RC1_SetHigh();
-	   __delay_ms(100);
+	   __delay_ms(50);
 	    MOTOR_CCW_RC1_SetLow();
 	   __delay_ms(50);
-         MOTOR_CCW_RC1_SetHigh();
-	   __delay_ms(25);
-	   MOTOR_CCW_RC1_SetLow();
-	   __delay_ms(15);
-	    MOTOR_CCW_RC1_SetHigh();
+       MOTOR_CCW_RC1_SetHigh();
+	 
         
     }
 

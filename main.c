@@ -35,6 +35,8 @@ void main(void)
             }
             if(gTimer > 150){
                 cmd_t.gCmd_Power =PowerOff;
+                gTimer =0 ; //WT.EDIT 2022.04.27 
+                keyPowerOn_Flag=0; //WT.EDIT 2022.04.27
             }
           }
         }

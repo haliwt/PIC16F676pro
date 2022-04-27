@@ -132,7 +132,7 @@ uint8_t KEY_Scan(void)
 **************************************************/
 void CheckMode(unsigned char keyvalue)
 {
-   static uint8_t powkey=0, currKey=0xff;
+   static uint8_t currKey=0xff;
 
     switch(keyvalue){
         
@@ -179,14 +179,14 @@ void CheckMode(unsigned char keyvalue)
         break;
 
     	case 0x81: //long times ke be presed power On
-    	   powkey ++;
-    	   if(powkey ==1){
+    	   keyPowerOn_Flag++;
+    	   if(keyPowerOn_Flag ==1){
             	cmd_t.gCmd_Power =PowerOn;
 		        cmd_t.gCmd = 0;//MotorStop;
 		        gTimer=0;
             }
             else{
-               powkey =0;
+               keyPowerOn_Flag =0;
                cmd_t.gCmd_Power =PowerOff;
 			  
 			}
@@ -294,8 +294,8 @@ void RunCommand(void)
 	    		POWER_LED_OFF();
                 BLINK_LED_OFF();
 				cmd_t.gCmd_KeyState++;
-				cmd_t.gCmd=0xf0;
-                gTimer = 0;
+			   //cmd_t.gCmd=0xf0; //WT.EDIT 2022.04.27
+              //  gTimer = 0;   //WT.EDIT 2022.04.27
     }
 
 

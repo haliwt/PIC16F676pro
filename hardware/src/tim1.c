@@ -58,46 +58,6 @@ void TMR1_StartTimer(void)
     T1CONbits.TMR1ON = 1;
 }
 
-//void TMR1_StopTimer(void)
-//{
-    // Stop the Timer by writing to TMRxON bit
-    //T1CONbits.TMR1ON = 0;
-//}
-#if 0
-uint16_t TMR1_ReadTimer(void)
-{
-    uint16_t readVal;
-    uint8_t readValHigh;
-    uint8_t readValLow;
-    
-	
-    readValLow = TMR1L;
-    readValHigh = TMR1H;
-    
-    readVal = ((uint16_t)readValHigh << 8) | readValLow;
-
-    return readVal;
-}
-#endif 
-
-//void TMR1_WriteTimer(uint16_t timerVal)
-//{
-    
-        // Write to the Timer1 register
-       // TMR1H = (uint8_t)(timerVal >> 8);
-       // TMR1L = (uint8_t)timerVal;
-    
-//}
-
-//void TMR1_Reload(void)
-//{
-//    TMR1_WriteTimer(timer1ReloadVal);
-//}
-
-
-
-
-
 void TMR1_ISR(void)
 {
 
@@ -136,8 +96,9 @@ void TMR1_CallBack(void)
           it=0;
           zt++;
           if(zt==1){ 
-             gTimer++;//2s
-             blink_LedFrequency=0;
+           
+            gTimer++;//2s
+            blink_LedFrequency=0;
             
          }
         else {
@@ -152,14 +113,6 @@ void TMR1_CallBack(void)
 
 }
 
-//void TMR1_SetInterruptHandler(void (* InterruptHandler)(void)){
-   // TMR1_InterruptHandler = InterruptHandler;
-//}
-
-//void TMR1_DefaultInterruptHandler(void){
-    // add your TMR1 interrupt custom code
-    // or set custom function using TMR1_SetInterruptHandler()
-//}
 
 
 

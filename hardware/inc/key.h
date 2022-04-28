@@ -95,8 +95,6 @@ enum runCmd{
 
 };
 
-unsigned char keyPowerOn_Flag ;
-
 unsigned char gDoCharging;
 unsigned char dochargingFlag;
 void KEY_Init(void);

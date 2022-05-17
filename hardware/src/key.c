@@ -216,6 +216,12 @@ void RunCommand(void)
 	    	        __delay_ms(300);
 	    	       
 	    	    }
+				else if(cmd_t.handPos ==2){ //motor run Up //WT.EDIT 2022.05.17
+					cmd_t.handPos =0;
+					Motor_CCW_Run(); //motor run down
+					__delay_ms(150);
+					
+				}
 				cmd_t.gmotor_upStep=0;	
 				cmd_t.gCmd_KeyState ++;
                 Motor_Stop();//Motor_Stop();
@@ -228,7 +234,7 @@ void RunCommand(void)
 				 if(Clamp_Hand()){
 	              cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
-	    		  cmd_t.handPos=0;
+	    		  cmd_t.handPos=2;
 	    		  cmd_t.gCmd=TempStop;
 	    		  
             	}

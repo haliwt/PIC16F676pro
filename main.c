@@ -18,7 +18,7 @@ void main(void)
 
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
-    TMR1_StartTimer();
+    //TMR1_StartTimer();
     while(1)
   	{
       

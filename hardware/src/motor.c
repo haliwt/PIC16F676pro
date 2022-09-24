@@ -51,11 +51,11 @@ void Motor_Stop(void)
         MOTOR_CCW_RC1_SetLow();
         
        MOTOR_CW_RC0_SetHigh();	
-	   __delay_ms(25);
+	   __delay_ms(10);
 	   MOTOR_CW_RC0_SetLow();
-	   __delay_ms(25);
+	   __delay_ms(10);
        MOTOR_CW_RC0_SetHigh();	
-       __delay_ms(50);
+       __delay_ms(100); //WT.EDIT 2022.09.24
 	  
     }
 
@@ -70,9 +70,9 @@ void Motor_Stop(void)
       	MOTOR_CW_RC0_SetLow();	
 	
 	   MOTOR_CCW_RC1_SetHigh();
-	   __delay_ms(50);
+	   __delay_ms(10);
 	    MOTOR_CCW_RC1_SetLow();
-	   __delay_ms(50);
+	   __delay_ms(10);
        MOTOR_CCW_RC1_SetHigh();
 	 
         

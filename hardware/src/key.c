@@ -163,7 +163,7 @@ void CheckMode(unsigned char keyvalue)
            	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum ==4){
 
                 cmd_t.gCmd = TempStop;
-				Motor_Stop();//Motor_Stop();
+				//Motor_Stop();//WT.EDIT 2022.09.24
 				if(cmd_t.gCmd_KeyNum==4)cmd_t.gCmd_KeyNum=0;
 				
 			}
@@ -194,6 +194,7 @@ void CheckMode(unsigned char keyvalue)
     	break;
 
     	default:
+			  
   
     	break;
 
@@ -288,8 +289,10 @@ void RunCommand(void)
             break;
 
    			default:
-
-
+			   if(cmd_t.gmotor_upStep !=0 && cmd_t.gCmd != 0){
+			   if(cmd_t.gCmd_KeyNum == 3)cmd_t.gCmd=MotorDown;//WT.EDIT 2022.09.24 
+			   if(cmd_t.gCmd_KeyNum ==1)cmd_t.gCmd=MotorUp ;   //WT.EDIT  2022.09.24
+			   	}
 			break;
 		}
 	}

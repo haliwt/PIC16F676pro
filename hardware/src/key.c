@@ -142,7 +142,7 @@ void CheckMode(unsigned char keyvalue)
 			if(currKey != cmd_t.gCmd_KeyState){
 				currKey = cmd_t.gCmd_KeyState;
 				cmd_t.gmotor_upStep=0; //motor first run lable
-				 	cmd_t.gCmd_KeyNum ++;
+				cmd_t.gCmd_KeyNum ++;
 
 				if(cmd_t.bottomPos ==1){
 
@@ -157,7 +157,11 @@ void CheckMode(unsigned char keyvalue)
 		    
 			
             if(cmd_t.gCmd_KeyNum  ==1){
-           		cmd_t.gCmd = MotorUp; //state is ?
+            	if(TOP_POS_RA1_GetValue()==0){ //WT.EDIT 2022.09.26
+            		cmd_t.gCmd = MotorDown;
+            	}
+            	else
+           		  cmd_t.gCmd = MotorUp; //state is ?
            	}
            	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum ==4){
 

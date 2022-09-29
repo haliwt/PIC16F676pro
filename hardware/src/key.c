@@ -157,7 +157,10 @@ void CheckMode(unsigned char keyvalue)
 		    
 			
             if(cmd_t.gCmd_KeyNum  ==1){
-           		cmd_t.gCmd = MotorUp; //state is ?
+                if(TOP_POS_RA1_GetValue()==0){ //RA2 
+                      cmd_t.gCmd = MotorDown;
+                }
+           		else cmd_t.gCmd = MotorUp; //state is ?
 				cmd_t.gmotor_upStep=0;
            	}
            	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum ==4){
@@ -204,9 +207,7 @@ void CheckMode(unsigned char keyvalue)
 
 void RunCommand(void)
 {
-
-    
-	if(cmd_t.gCmd_Power == PowerOn ){
+    if(cmd_t.gCmd_Power == PowerOn ){
 
         switch(cmd_t.gCmd){
             case TempStop:
@@ -289,10 +290,10 @@ void RunCommand(void)
             break;
 
    			default:
-			   if(cmd_t.gmotor_upStep !=0 && cmd_t.gCmd != 0){
-			   if(cmd_t.gCmd_KeyNum == 3)cmd_t.gCmd=MotorDown;//WT.EDIT 2022.09.24 
-			   if(cmd_t.gCmd_KeyNum ==1)cmd_t.gCmd=MotorUp ;   //WT.EDIT  2022.09.24
-			   	}
+//			   if(cmd_t.gmotor_upStep !=0 && cmd_t.gCmd != 0){
+//			   if(cmd_t.gCmd_KeyNum == 3)cmd_t.gCmd=MotorDown;//WT.EDIT 2022.09.24 
+//			   if(cmd_t.gCmd_KeyNum ==1)cmd_t.gCmd=MotorUp ;   //WT.EDIT  2022.09.24
+//			   	}
 			break;
 		}
 	}

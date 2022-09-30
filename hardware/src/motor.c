@@ -43,7 +43,7 @@ void Motor_Stop(void)
 }
  void MotorStart_CW_Step(void)//Up 
 {
-	
+     unsigned char m =60;
      if(cmd_t.gmotor_upStep==0 ){//CW
 		cmd_t.gmotor_upStep++;
         
@@ -55,8 +55,16 @@ void Motor_Stop(void)
 	   MOTOR_CW_RC0_SetLow();
 	   __delay_ms(15);
        MOTOR_CW_RC0_SetHigh();	
-       __delay_ms(500); //WT.EDIT 2022.09.24
-	  
+       while(m--){ //WT.EDIT 2022.09.30
+       if(TOP_POS_RA1_GetValue()==0){ //RA2 
+            Motor_Stop();//cmd_t.gCmd = MotorDown;
+            m = 0;
+            return ;
+       }
+       else
+          __delay_ms(10); //WT.EDIT 2022.09.24
+     
+       }
     }
 
 

@@ -9,8 +9,8 @@
 #define	MAIN_H
 #include <stdio.h>
 #include <stdlib.h>
-//#include <pic.h>
-#include <xc.h>
+#include <pic.h>
+//#include <xc.h>
 #include "hardware/inc/interrupt.h"
 #include "hardware/inc/led.h"
 #include "hardware/inc/key.h"

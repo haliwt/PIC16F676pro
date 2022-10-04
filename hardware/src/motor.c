@@ -61,6 +61,11 @@ void Motor_Stop(void)
             m = 0;
             return ;
        }
+       else if(cmd_t.gCmd==TempStop){
+       	  Motor_Stop();
+            m = 0;
+            return ;
+       }
        else
           __delay_ms(10); //WT.EDIT 2022.09.24
      

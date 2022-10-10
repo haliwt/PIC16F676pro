@@ -23,7 +23,8 @@ uint8_t KEY_Scan(void)
   key.read = _KEY_ALL_OFF; //0x1F 
    if(KEY1_RC2_GetValue() ==0 )
 	{
-		key.read &= ~0x01; // 0x1f & 0xfe =  0x1E
+		//key.read  &= ~0x01; // 0x1f & 0xfe =  0x1E
+       key.read = key.read & 0xfe;
 	}
 	
 	
@@ -166,7 +167,7 @@ void CheckMode(unsigned char keyvalue)
            	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum ==4){
 
                 cmd_t.gCmd = TempStop;
-				//Motor_Stop();//WT.EDIT 2022.09.24
+				Motor_Stop();//WT.EDIT 2022.10.10
 				if(cmd_t.gCmd_KeyNum==4)cmd_t.gCmd_KeyNum=0;
 				
 			}
@@ -234,10 +235,10 @@ void RunCommand(void)
 		  
               case MotorUp : //CW -UP cmd_t.mtorDir =0;
 				 if(Clamp_Hand()){
-	              cmd_t.gCmd_KeyState++;
-	    		  cmd_t.gCmd_KeyNum=0;//continuce Up run
-	    		  cmd_t.handPos=2;
-	    		  cmd_t.gCmd=TempStop;
+                    cmd_t.gCmd_KeyState++;
+                    cmd_t.gCmd_KeyNum=0;//continuce Up run
+                    cmd_t.handPos=2;
+                    cmd_t.gCmd=TempStop;
 	    		  
             	}
                else if(TOP_POS_RA1_GetValue()==0){ //RA2 
@@ -289,11 +290,13 @@ void RunCommand(void)
 
             break;
 
-   			default:
-//			   if(cmd_t.gmotor_upStep !=0 && cmd_t.gCmd != 0){
-//			   if(cmd_t.gCmd_KeyNum == 3)cmd_t.gCmd=MotorDown;//WT.EDIT 2022.09.24 
-//			   if(cmd_t.gCmd_KeyNum ==1)cmd_t.gCmd=MotorUp ;   //WT.EDIT  2022.09.24
-//			   	}
+   			default://WT.EDIT 2022.10.10 
+			   if(cmd_t.gmotor_upStep !=0 && cmd_t.gCmd != 0 && cmd_t.gCmd !=TempStop && cmd_t.gCmd !=0xf0){
+                   if(cmd_t.handPos !=1 &&  cmd_t.handPos!=2 && cmd_t.bottomPos!=1 && cmd_t.topPos!=1){
+                        if(cmd_t.gCmd_KeyNum == 3)cmd_t.gCmd=MotorDown;//WT.EDIT 2022.09.24 
+                        if(cmd_t.gCmd_KeyNum ==1)cmd_t.gCmd=MotorUp ;   //WT.EDIT  2022.09.24
+                   }
+			   	}
 			break;
 		}
 	}

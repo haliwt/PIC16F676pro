@@ -16,7 +16,14 @@ void SENSOR_Init(void)
 }
 
 
-
+/*********************************************
+ * 
+ * Function Name:uint8_t Clamp_Hand(void)
+ * Funciton:
+ * Input Ref:NO
+ * Return Ref:1-clamp hand .0 -don't clam hand
+ * 
+**********************************************/
 uint8_t Clamp_Hand(void)
 {
 	
@@ -24,7 +31,7 @@ uint8_t Clamp_Hand(void)
     	return 0;
     }
     else{
-    	return 1;
+    	return 1; //clamp hand 
     }
 
   

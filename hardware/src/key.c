@@ -239,6 +239,7 @@ void RunCommand(void)
                     cmd_t.gCmd_KeyNum=0;//continuce Up run
                     cmd_t.handPos=2;
                     cmd_t.gCmd=TempStop;
+					
 	    		  
             	}
                else if(TOP_POS_RA1_GetValue()==0){ //RA2 
@@ -247,6 +248,7 @@ void RunCommand(void)
 					cmd_t.topPos=1;
 					cmd_t.gCmd_KeyNum = 2;
 					cmd_t.gCmd=TempStop;
+					Motor_Stop();//WT.EDIT 2022.10.10
 	    	   }
 			   else{
 					cmd_t.gCmd_KeyState++;
@@ -275,6 +277,7 @@ void RunCommand(void)
 					cmd_t.bottomPos=1;
 					cmd_t.gCmd_KeyNum = 0;
 					cmd_t.gCmd=TempStop;
+					Motor_Stop();//WT.EDIT 2022.10.10
 	    		}
 	    		else{
 					cmd_t.gCmd_KeyState++;

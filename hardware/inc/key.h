@@ -72,6 +72,7 @@ typedef struct _CMD{
    unsigned char handPos;
    unsigned char gDoKey ;
    unsigned char gmotor_upStep;
+   unsigned char gkeyValue;
    
 }CMD_T;
 

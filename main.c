@@ -5,7 +5,7 @@ __CONFIG(0x0194);
 void main(void)
 {
      
-     uint8_t keyValue;
+   //  uint8_t keyValue;
  
    //  SYSTEM_Initialize();
     TMR1_Initialize();
@@ -22,15 +22,15 @@ void main(void)
     while(1)
   	{
       
-        keyValue = KEY_Scan();
-        CheckMode(keyValue);
+        cmd_t.gkeyValue = KEY_Scan();
+        CheckMode(cmd_t.gkeyValue);
         Do_Charge();
         RunCommand();
         if(cmd_t.gCmd==TempStop || cmd_t.gCmd_Power ==PowerOn )
         {
           POWER_LED_ON();
           if(blink_LedFrequency==1){
-            if( keyValue !=0){
+            if( cmd_t.gkeyValue !=0){
                   gTimer=0;
             }
             if(gTimer > 150){

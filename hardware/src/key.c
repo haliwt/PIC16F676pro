@@ -234,7 +234,7 @@ void RunCommand(void)
             break;
 		  
               case MotorUp : //CW -UP cmd_t.mtorDir =0;
-				 if(Clamp_Hand()){
+				 if(CLAMPHAND_RA5_GetValue()==0){
                     cmd_t.gCmd_KeyState++;
                     cmd_t.gCmd_KeyNum=0;//continuce Up run
                     cmd_t.handPos=2;
@@ -263,7 +263,7 @@ void RunCommand(void)
             case MotorDown: //CW- DOWN move cmd_t.mtorDir =1;
 			   
 				
-				if(Clamp_Hand()){	
+				if(CLAMPHAND_RA5_GetValue()==0){	
 	           
 				  cmd_t.gCmd_KeyState++;
 	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run

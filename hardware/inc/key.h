@@ -73,6 +73,7 @@ typedef struct _CMD{
    unsigned char gDoKey ;
    unsigned char gmotor_upStep;
    unsigned char gkeyValue;
+   unsigned char gTimer_100ms;
    
 }CMD_T;
 
@@ -105,7 +106,7 @@ unsigned char  KEY_Scan(void);
 void CheckMode(unsigned char keyvalue);
 void RunCommand(void);
 
-
+void MotorRun_Up_TempStop_Detection(void);
 
 
 

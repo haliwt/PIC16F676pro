@@ -17,11 +17,13 @@ void Motor_Init(void)
 
 }
 
-void Motor_CW_Run(void)
+void Motor_CW_Run(void)//Run Up Motor 
 {
 	MotorStart_CW_Step();
-	MOTOR_CW_RC0_SetHigh();	
-	MOTOR_CCW_RC1_SetLow();
+ //   MOTOR_CCW_RC1_SetLow();//WT.EDIT 2022.10.31	
+	MOTOR_CW_RC0_SetHigh();
+    __delay_ms(5);//WT.EDIT 2022.10.31	
+//	MOTOR_CCW_RC1_SetLow();//WT.EDIT 2022.10.31	
 	
 }
 
@@ -40,6 +42,22 @@ void Motor_Stop(void)
     MOTOR_CW_RC0_SetLow(); //brake
     MOTOR_CCW_RC1_SetLow(); //brake
 }
+void MotorStart_CW_Step(void)//Up 
+{
+
+     if(cmd_t.gmotor_upStep==0 ){//CW
+		cmd_t.gmotor_upStep++;
+        MOTOR_CCW_RC1_SetLow();
+        
+       MOTOR_CW_RC0_SetHigh();	
+	   __delay_ms(50);
+	   MOTOR_CW_RC0_SetLow();
+	   __delay_ms(50);
+       MOTOR_CW_RC0_SetHigh();	
+	   __delay_ms(50);
+	}
+}
+#if 0
  void MotorStart_CW_Step(void)//Up 
 {
      //unsigned char m =2;//WT.EDIT VERSION V023 
@@ -75,6 +93,7 @@ void Motor_Stop(void)
        }
     }
 }
+#endif 
 /***************************************************************************
 	*
 	*Function Name :void MotorStart_CCW_Step(void)

@@ -75,10 +75,14 @@ void TMR1_ISR(void)
 
 static void TMR1_CallBack(void)
 {
-    static uint16_t jt;
+     static uint16_t jt,cnt0;
      static uint8_t zt,wt,it,n;
 	 jt++;
-  
+     cnt0++;
+    if(cnt0>99){//100ms ,WT.EDIT 2022.10.31
+        cnt0=0;
+        cmd_t.gTimer_100ms++;
+     }
     if(jt>499){ //500ms
       jt=0;
       wt++;

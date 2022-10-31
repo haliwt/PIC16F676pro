@@ -24,6 +24,14 @@ void main(void)
       
         cmd_t.gkeyValue = KEY_Scan();
         CheckMode(cmd_t.gkeyValue);
+        if(cmd_t.gTimer_100ms >0){
+           cmd_t.gTimer_100ms=0;
+           if(cmd_t.gCmd == TempStop)
+               MotorRun_Up_TempStop_Detection();
+          
+        }
+       if(cmd_t.gCmd !=TempStop ){
+      //  MotorRun_Up_TempStop_Detection();
         Do_Charge();
         RunCommand();
         if(cmd_t.gCmd==TempStop || cmd_t.gCmd_Power ==PowerOn )
@@ -39,7 +47,7 @@ void main(void)
           }
         }
           
-
+       }
 
     }
 }

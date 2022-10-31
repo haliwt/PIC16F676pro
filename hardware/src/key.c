@@ -289,17 +289,7 @@ void RunCommand(void)
 			break;
 		}
 	}
-	else if(cmd_t.gCmd_Power ==PowerOff){
-               
-    	        Motor_Stop();
-               	cmd_t.gmotor_upStep=0;
-	    		POWER_LED_OFF();
-                BLINK_LED_OFF();
-				cmd_t.gCmd_KeyState++;
-				cmd_t.gCmd=0xf0;
-                gTimer = 0;
-				powkey=0;
-    }
+	
 
 
 }
@@ -323,6 +313,23 @@ void MotorRun_Up_TempStop_Detection(void)
                 Motor_Stop();//Motor_Stop();
 	    	    BLINK_LED_OFF();
              
+
+
+}
+
+void PowerOff_Fun(void)
+{
+   if(cmd_t.gCmd_Power ==PowerOff){
+               
+    	        Motor_Stop();
+               	cmd_t.gmotor_upStep=0;
+	    		POWER_LED_OFF();
+                BLINK_LED_OFF();
+				cmd_t.gCmd_KeyState++;
+				cmd_t.gCmd=0xf0;
+                gTimer = 0;
+				powkey=0;
+    }
 
 
 }

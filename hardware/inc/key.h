@@ -108,6 +108,6 @@ void RunCommand(void);
 
 void MotorRun_Up_TempStop_Detection(void);
 
-
+void PowerOff_Fun(void);
 
 #endif 

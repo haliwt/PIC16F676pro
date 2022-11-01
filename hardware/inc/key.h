@@ -81,7 +81,7 @@ CMD_T cmd_t;
 
 enum runCmd{
 
-  PowerOff = 0,
+  PowerOff = 0x0c,
   PowerOn = 0x01,
   MotorUp = 0x02,
   MotorDown = 0x03,
@@ -93,7 +93,7 @@ enum runCmd{
   Bottom_Pos = 0x09,
   ClampHand  = 0x0A,
   TempStop  = 0x0B,
-  
+  Nothing = 0xff
 
 };
 

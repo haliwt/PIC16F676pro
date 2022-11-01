@@ -8,7 +8,7 @@ void main(void)
    //  uint8_t keyValue;
  
    //  SYSTEM_Initialize();
-    TMR1_Initialize();
+     TMR1_Initialize();
 	 KEY_Init();
      Motor_Init();
      SENSOR_Init();
@@ -39,11 +39,12 @@ void main(void)
         
         
         
-        if((cmd_t.gCmd==TempStop || cmd_t.gCmd==Nothing) && cmd_t.gCmd_Power ==PowerOn)
+        if(((cmd_t.gCmd==TempStop || cmd_t.gCmd==Nothing) && cmd_t.gCmd_Power ==PowerOn)||cmd_t.gWait ==0)
         {
-          POWER_LED_ON();
+          if(cmd_t.gCmd_Power ==PowerOn)
+                POWER_LED_ON();
           if(blink_LedFrequency==1){
-            if( cmd_t.gkeyValue !=0){
+            if( cmd_t.gkeyValue !=0 || cmd_t.gWait==0){
                   gTimer=0;
             }
             if(gTimer > 150){

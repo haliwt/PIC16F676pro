@@ -176,7 +176,9 @@ void CheckMode(unsigned char keyvalue)
                 cmd_t.gCmd = MotorDown;
 				
            	}
+               
 			}
+            cmd_t.gWait = 1;
 		}
          
         
@@ -192,6 +194,7 @@ void CheckMode(unsigned char keyvalue)
             else{
                powkey =0;
                cmd_t.gCmd_Power =PowerOff;
+               cmd_t.gWait = 0;
 			  
 			}
 

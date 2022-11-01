@@ -62,7 +62,7 @@ typedef  struct  _state_
 key_types key;
 
 typedef struct _CMD{
-
+   unsigned char gWait;
    unsigned char gCmd;
    unsigned char gCmd_Power;
    unsigned char gCmd_KeyState;
@@ -80,7 +80,7 @@ typedef struct _CMD{
 CMD_T cmd_t;
 
 enum runCmd{
-
+    
   PowerOff = 0x0c,
   PowerOn = 0x01,
   MotorUp = 0x02,
@@ -94,6 +94,7 @@ enum runCmd{
   ClampHand  = 0x0A,
   TempStop  = 0x0B,
   Nothing = 0xff
+          
 
 };
 

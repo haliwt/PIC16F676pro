@@ -75,7 +75,7 @@ void TMR1_ISR(void)
 
 static void TMR1_CallBack(void)
 {
-     static uint16_t jt,cnt0;
+     static uint16_t jt,cnt0,cnt1;
      static uint8_t zt,wt,it,n;
 	 jt++;
      cnt0++;
@@ -97,8 +97,9 @@ static void TMR1_CallBack(void)
       if(it==2){ //1s
           it=0;
           zt++;
+	      cmd_t.gTimer_5_minutes++;
           if(zt==1){ 
-              cmd_t.gTimer_5_minutes++;
+             
              blink_LedFrequency=0;
             
          }
@@ -106,6 +107,8 @@ static void TMR1_CallBack(void)
             blink_LedFrequency=1;
             zt=0;
         }
+
+		
           
       
       }

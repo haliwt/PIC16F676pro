@@ -188,7 +188,7 @@ void CheckMode(unsigned char keyvalue)
     	   powkey ++;
     	   if(powkey ==1){
             	cmd_t.gCmd_Power =PowerOn;
-		        cmd_t.gCmd = 0;//MotorStop;
+		        cmd_t.gCmd = Nothing;
 		        cmd_t.gTimer_5_minutes=0;
             }
             else{
@@ -323,8 +323,9 @@ void PowerOff_Fun(void)
 	    		POWER_LED_OFF();
                 BLINK_LED_OFF();
 				cmd_t.gCmd_KeyState++;
-				cmd_t.gCmd=0xf0;
                 cmd_t.gTimer_5_minutes=0;
+                cmd_t.gWait = 0; //WT.EDIT 2022.11.01
+                cmd_t.gCmd=Nothing;//WT.EDIT 2022.11.01
 				powkey=0;
     }
 

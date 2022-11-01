@@ -74,7 +74,7 @@ typedef struct _CMD{
    unsigned char gmotor_upStep;
    unsigned char gkeyValue;
    unsigned char gTimer_100ms;
-   unsigned char gTimer_5_minutes;
+   unsigned int gTimer_5_minutes;
    
 }CMD_T;
 

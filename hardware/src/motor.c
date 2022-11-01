@@ -20,10 +20,10 @@ void Motor_Init(void)
 void Motor_CW_Run(void)//Run Up Motor 
 {
 	MotorStart_CW_Step();
- //   MOTOR_CCW_RC1_SetLow();//WT.EDIT 2022.10.31	
+ 
 	MOTOR_CW_RC0_SetHigh();
-    __delay_ms(5);//WT.EDIT 2022.10.31	
-//	MOTOR_CCW_RC1_SetLow();//WT.EDIT 2022.10.31	
+    __delay_ms(3);//WT.EDIT 2022.11.01
+
 	
 }
 

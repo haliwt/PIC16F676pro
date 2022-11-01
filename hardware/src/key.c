@@ -205,7 +205,14 @@ void CheckMode(unsigned char keyvalue)
     }
 
 }
-
+/***************************************************************
+ * 
+ * Function Name:void RunCommand(void)
+ * Function : motor run
+ * 
+ * 
+ * 
+****************************************************************/
 void RunCommand(void)
 {
     if(cmd_t.gCmd_Power == PowerOn ){
@@ -223,12 +230,14 @@ void RunCommand(void)
 	    		  
             	}
                else if(TOP_POS_RA1_GetValue()==0){ //RA2 
-                   
-					cmd_t.gCmd_KeyState++;
-					cmd_t.topPos=1;
-					cmd_t.gCmd_KeyNum = 2;
-					cmd_t.gCmd=TempStop;
-					Motor_Stop();//WT.EDIT 2022.10.10
+                     __delay_ms(10);//WT.EDIT 2022.11.01
+                   if(TOP_POS_RA1_GetValue()==0){
+						cmd_t.gCmd_KeyState++;
+						cmd_t.topPos=1;
+						cmd_t.gCmd_KeyNum = 2;
+						cmd_t.gCmd=TempStop;
+						Motor_Stop();//WT.EDIT 2022.10.10
+                   	}
 	    	   }
 			   else{
 					cmd_t.gCmd_KeyState++;

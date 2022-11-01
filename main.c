@@ -45,7 +45,7 @@ void main(void)
                   cmd_t.gWait++;
                   cmd_t.gTimer_5_minutes=0;
             }
-            if(cmd_t.gTimer_5_minutes > 330){
+            if(cmd_t.gTimer_5_minutes > 332){ //340 -> 5:08
                 cmd_t.gCmd_Power =PowerOff;
             }
           

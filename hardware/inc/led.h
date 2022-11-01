@@ -18,7 +18,7 @@
 
 
 unsigned char  blink_LedFrequency;
-unsigned char gTimer;
+
 
 void  BLINK_POWER_LED_Init(void);
 void  BLINK_LED_Fun(void);

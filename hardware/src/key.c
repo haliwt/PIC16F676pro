@@ -176,9 +176,9 @@ void CheckMode(unsigned char keyvalue)
                 cmd_t.gCmd = MotorDown;
 				
            	}
-               
+               cmd_t.gWait = 1;
 			}
-            cmd_t.gWait = 1;
+            
 		}
          
         
@@ -189,13 +189,13 @@ void CheckMode(unsigned char keyvalue)
     	   if(powkey ==1){
             	cmd_t.gCmd_Power =PowerOn;
 		        cmd_t.gCmd = 0;//MotorStop;
-		        gTimer=0;
+		        cmd_t.gTimer_5_minutes=0;
             }
             else{
                powkey =0;
                cmd_t.gCmd_Power =PowerOff;
                cmd_t.gWait = 0;
-			  
+			   cmd_t.gTimer_5_minutes=0;
 			}
 
     	break;
@@ -229,9 +229,7 @@ void RunCommand(void)
                     cmd_t.gCmd_KeyNum=0;//continuce Up run
                     cmd_t.handPos=2;
                     cmd_t.gCmd=TempStop;
-                    
-	    		  
-            	}
+                }
                else if(TOP_POS_RA1_GetValue()==0){ //RA2 
                      __delay_ms(10);//WT.EDIT 2022.11.01
                    if(TOP_POS_RA1_GetValue()==0){
@@ -247,7 +245,8 @@ void RunCommand(void)
 	    			cmd_t.gCmd_KeyNum = 1;
 					dochargingFlag=0;
 				    Motor_CW_Run();
-	    			 BLINK_LED_Fun();
+	    			BLINK_LED_Fun();
+                   cmd_t.gTimer_5_minutes=0;//WT.EDIT 2022.11.01
 					
 	    	 }
 			break;
@@ -278,8 +277,7 @@ void RunCommand(void)
 					dochargingFlag=0;
 			        BLINK_LED_Fun();
 			        Motor_CCW_Run();
-					
-                   
+                    cmd_t.gTimer_5_minutes=0;//WT.EDIT 2022.11.01
 				}
 	    	break;
 
@@ -326,7 +324,7 @@ void PowerOff_Fun(void)
                 BLINK_LED_OFF();
 				cmd_t.gCmd_KeyState++;
 				cmd_t.gCmd=0xf0;
-                gTimer = 0;
+                cmd_t.gTimer_5_minutes=0;
 				powkey=0;
     }
 

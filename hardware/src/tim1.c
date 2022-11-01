@@ -98,7 +98,7 @@ static void TMR1_CallBack(void)
           it=0;
           zt++;
           if(zt==1){ 
-             gTimer++;//2s
+              cmd_t.gTimer_5_minutes++;
              blink_LedFrequency=0;
             
          }

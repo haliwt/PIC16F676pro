@@ -199,7 +199,7 @@ void CheckMode(unsigned char keyvalue)
 
     	default:
 		    	  
-            keyvalue=Nothing;//WT.EDIT 2022.11.01
+            keyvalue=0;//WT.EDIT 2022.11.01
     	break;
 
     }

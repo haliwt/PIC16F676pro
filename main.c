@@ -39,7 +39,7 @@ void main(void)
         
         
         
-        if(cmd_t.gCmd==TempStop && cmd_t.gCmd_Power ==PowerOn)
+        if((cmd_t.gCmd==TempStop || cmd_t.gCmd==Nothing) && cmd_t.gCmd_Power ==PowerOn)
         {
           POWER_LED_ON();
           if(blink_LedFrequency==1){

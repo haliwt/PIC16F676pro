@@ -42,9 +42,10 @@ void main(void)
           if(cmd_t.gCmd_Power ==PowerOn)
                 POWER_LED_ON();
           if( cmd_t.gkeyValue !=0 || cmd_t.gWait==0){
+                  cmd_t.gWait++;
                   cmd_t.gTimer_5_minutes=0;
             }
-            if(cmd_t.gTimer_5_minutes > 299){
+            if(cmd_t.gTimer_5_minutes > 330){
                 cmd_t.gCmd_Power =PowerOff;
             }
           

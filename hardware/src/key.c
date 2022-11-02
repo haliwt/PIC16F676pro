@@ -221,6 +221,27 @@ void RunCommand(void)
     if(cmd_t.gCmd_Power == PowerOn ){
 
         switch(cmd_t.gCmd){
+            
+                case TempStop:
+                   if(cmd_t.handPos==1){
+	    	       cmd_t.handPos=0;
+	    	        Motor_CW_Run();  //Move Up
+	    	        __delay_ms(300);
+	    	       
+	    	    }
+				else if(cmd_t.handPos ==2){ //motor run Up //WT.EDIT 2022.05.17
+					cmd_t.handPos =0;
+					Motor_CCW_Run(); //motor run down
+					__delay_ms(150);
+					
+				}
+				cmd_t.gmotor_upStep=0;	
+				cmd_t.gCmd_KeyState ++;
+                Motor_Stop();//Motor_Stop();
+	    	    BLINK_LED_OFF();
+                cmd_t.gCmd = Nothing ;//WT.EDIT 2022.11.01
+                
+                break;
 		  
               case MotorUp : //CW -UP cmd_t.mtorDir =0;
 				 if(CLAMPHAND_RA5_GetValue()==0){

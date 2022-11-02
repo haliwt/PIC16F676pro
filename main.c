@@ -25,7 +25,7 @@ void main(void)
         cmd_t.gkeyValue = KEY_Scan();
         CheckMode(cmd_t.gkeyValue);
        
-       if(cmd_t.gCmd !=TempStop && cmd_t.gCmd_Power ==PowerOn ){
+       if(cmd_t.gCmd_Power ==PowerOn ){
         POWER_LED_ON();
         Do_Charge();
         RunCommand();

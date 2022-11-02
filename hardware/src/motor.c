@@ -22,7 +22,7 @@ void Motor_CW_Run(void)//Run Up Motor
 	MotorStart_CW_Step();
  
 	MOTOR_CW_RC0_SetHigh();
-    __delay_ms(3);//WT.EDIT 2022.11.01
+    __delay_ms(1);//WT.EDIT 2022.11.02
 
 	
 }

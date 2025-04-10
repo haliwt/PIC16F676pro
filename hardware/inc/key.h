@@ -8,6 +8,20 @@
 
 #define		_KEY_ALL_OFF				0X1F
 
+typedef enum{
+    stop,
+    up,
+	down,
+	null_up_state,
+	null_down_state,
+	null_top_pos,
+	null_bottom_pos,
+	null_state
+}up_down_state;
+
+
+
+
  typedef enum KEY_STATE{
   start  = 0,
   first  = 1,

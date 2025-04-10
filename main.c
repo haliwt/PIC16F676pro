@@ -25,18 +25,18 @@ void main(void)
         keyValue = KEY_Scan();
         CheckMode(keyValue);
         if(cmd_t.gCmd_Power ==PowerOn){
-        Do_Charge();
-        RunCommand();
-        POWER_LED_ON();
-          //POWER_LED_ON();
-          if(blink_LedFrequency==1){
-            if( keyValue !=0){
-                  gTimer=0;
-            }
-            if(gTimer > 150){
-                cmd_t.gCmd_Power =PowerOff;
-            }
-          }
+	        Do_Charge();
+	        RunCommand();
+	        POWER_LED_ON();
+	          //POWER_LED_ON();
+	          if(blink_LedFrequency==1){
+	            if( keyValue !=0){
+	                  gTimer=0;
+	            }
+	            if(gTimer > 150){ //5 minutes 
+	                cmd_t.gCmd_Power =PowerOff;
+	            }
+	          }
         }
         else{
             if(gTimer > 5){ //2s x 5 =10s

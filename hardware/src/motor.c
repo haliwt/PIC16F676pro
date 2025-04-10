@@ -43,48 +43,36 @@ void Motor_Stop(void)
 }
  void MotorStart_CW_Step(void)//Up 
 {
-     //unsigned char m =2;//WT.EDIT VERSION V023 
-     unsigned char m =2;//WT.EDIT 2022.10.10
-     if(cmd_t.gmotor_upStep==0 ){//CW
-		cmd_t.gmotor_upStep++;
-        MOTOR_CCW_RC1_SetLow();
-        
+     if(cmd_t.gmotor_thefirst_run_flag==0 ){//CW: run_go_up
+		cmd_t.gmotor_thefirst_run_flag++;
+       MOTOR_CCW_RC1_SetLow();
+	   MOTOR_CW_RC0_SetHigh();	
+        __delay_ms(30); //	WT.EDIT 2025.03.28
+       MOTOR_CCW_RC1_SetLow();
+	   __delay_ms(15);//	WT.EDIT 2025.03.28
        MOTOR_CW_RC0_SetHigh();	
-	   __delay_ms(15);
-	   MOTOR_CW_RC0_SetLow();
-	   __delay_ms(15);
-       MOTOR_CW_RC0_SetHigh();	
-       while(m--){ //WT.EDIT 2022.09.30,run two times
-       if(TOP_POS_RA1_GetValue()==0){ //RA2 
-            Motor_Stop();
-            m = 0;
-            return ;
-       }
-       else if(cmd_t.gCmd==TempStop){ //
-       	  Motor_Stop();
-            m = 0;
-            return ;
-       }
-       else if(TOP_POS_RA1_GetValue()==1)
-          __delay_ms(300);//WT.EDIT 2002.10.10 __delay_ms(300); //WT.EDIT 2022.09.24
-     
-       }
-    }
+	   __delay_ms(100);//	WT.EDIT 2025.03.28
+	   MOTOR_CCW_RC1_SetLow();
+	   __delay_ms(10);//	WT.EDIT 2025.03.28
+	   MOTOR_CW_RC0_SetHigh();	
+	   __delay_ms(300);//
+      }
 }
 
  void MotorStart_CCW_Step(void)
 {
-     if(cmd_t.gmotor_upStep==0 ){//CW
-		cmd_t.gmotor_upStep++;
+     if(cmd_t.gmotor_thefirst_run_flag==0 ){//CCW:go_down
+		cmd_t.gmotor_thefirst_run_flag++;
         
       	MOTOR_CW_RC0_SetLow();	
 	
 	   MOTOR_CCW_RC1_SetHigh();
 	   __delay_ms(50);
 	    MOTOR_CCW_RC1_SetLow();
-	   __delay_ms(50);
+	   __delay_ms(15);
        MOTOR_CCW_RC1_SetHigh();
-       //__delay_ms(50); //WT.EDIT 2022.09.24
+       __delay_ms(50); //WT.EDIT 2022.09.24
+       MOTOR_CCW_RC1_SetHigh();
         
     }
 

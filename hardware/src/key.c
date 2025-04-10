@@ -327,14 +327,13 @@ void RunCommand(void)
 	}
 	else if(cmd_t.gCmd_Power ==PowerOff){
                
-    	        Motor_Stop();
-               	cmd_t.gmotor_upStep=0;
+    	       Motor_Stop();
+               	cmd_t.gmotor_thefirst_run_flag=0;
 	    		POWER_LED_OFF();
                 BLINK_LED_OFF();
-				cmd_t.gCmd_KeyState++;
+				
 				cmd_t.gCmd=0xf0;
                 gTimer = 0;
-				powkey=0;
     }
 
 

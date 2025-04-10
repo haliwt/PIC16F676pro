@@ -238,47 +238,55 @@ void RunCommand(void)
         switch(cmd_t.gCmd){
             case TempStop:
              
-				if(cmd_t.handPos==1){
-	    	       cmd_t.handPos=0;
-	    	        Motor_CW_Run();  //Move Up
+				if(cmd_t.clamphandPos==up){
+	    	       cmd_t.clamphandPos= null_up_state;
+	    	        Motor_CW_Run();  //Move Up 
 	    	        __delay_ms(300);
+					Motor_Stop();//Motor_Stop();
+					
 	    	       
 	    	    }
-				else if(cmd_t.handPos ==2){ //motor run Up //WT.EDIT 2022.05.17
-					cmd_t.handPos =0;
+				else if(cmd_t.clamphandPos ==down){ //motor run Up //WT.EDIT 2022.05.17
+					cmd_t.clamphandPos =null_down_state ;
 					Motor_CCW_Run(); //motor run down
 					__delay_ms(150);
+					Motor_Stop();//Motor_Stop();
+					
 					
 				}
-				cmd_t.gmotor_upStep=0;	
-				cmd_t.gCmd_KeyState ++;
-                Motor_Stop();//Motor_Stop();
-	    	    BLINK_LED_OFF();
+				else{//next direct motor un up.WT.EDIT.2025.03.28
+				
+			     	Motor_Stop();//Motor_Stop();
+	    	    	BLINK_LED_OFF();
+			    }
              
                 
             break;
 		  
               case MotorUp : //CW -UP cmd_t.mtorDir =0;
-				 if(Clamp_Hand()){
-                    cmd_t.gCmd_KeyState++;
-                    cmd_t.gCmd_KeyNum=0;//continuce Up run
-                    cmd_t.handPos=2;
+				if(Clamp_Hand()){
+                 
+                   cmd_t.clamphandPos=down;//go astern 
+                    
                     cmd_t.gCmd=TempStop;
-	    		  
-            	}
-               else if(TOP_POS_RA1_GetValue()==0){ //RA2 
+					Motor_Stop();//WT.EDIT 2025.03.20
+			    }
+				else if(TOP_POS_RA1_GetValue()==0){ //RA2 
                    
-					cmd_t.gCmd_KeyState++;
-					cmd_t.topPos=1;
-					cmd_t.gCmd_KeyNum = 2;
 					cmd_t.gCmd=TempStop;
+					Motor_Stop(); //WT.EDIT 2025.03.20
+					cmd_t.clamphandPos= null_top_pos;
+					BLINK_LED_OFF();
+					
 	    	   }
 			   else{
-					cmd_t.gCmd_KeyState++;
-	    			cmd_t.gCmd_KeyNum = 1;
-					dochargingFlag=0;
-				    Motor_CW_Run();
-	    			 BLINK_LED_Fun();
+				
+	    			dochargingFlag=0;
+					BLINK_LED_Fun();
+				    Motor_CW_Run(); //go up run
+	    			
+					cmd_t.direction_flag = MotorUp;
+					cmd_t.clamphandPos= null_state;
 					
 	    	 }
 			break;
@@ -287,41 +295,33 @@ void RunCommand(void)
 			   
 				
 				if(Clamp_Hand()){	
-	           
-				  cmd_t.gCmd_KeyState++;
-	    		  cmd_t.gCmd_KeyNum=2;//continuce Down run
-	    		  cmd_t.handPos=1;
+	              cmd_t.clamphandPos=up; //go astern 
 	    		  cmd_t.gCmd=TempStop;
+				  Motor_Stop(); //WT.EDIT 2025.03.20
 	    		  
             	}
             	else if(BOTTOM_POS_RA2_GetValue()==0){
                   
-					cmd_t.gCmd_KeyState++;
-					cmd_t.bottomPos=1;
-					cmd_t.gCmd_KeyNum = 0;
 					cmd_t.gCmd=TempStop;
+					Motor_Stop(); //WT.EDIT 2025.03.20
+					cmd_t.clamphandPos= null_bottom_pos;
 	    		}
 	    		else{
-					cmd_t.gCmd_KeyState++;
-	    			cmd_t.gCmd_KeyNum = 3;
+				
+	    		
 					dochargingFlag=0;
 			        BLINK_LED_Fun();
-			        Motor_CCW_Run();
+			        Motor_CCW_Run(); //go down run .
+			        cmd_t.direction_flag = MotorDown;
+					cmd_t.clamphandPos= null_state;
 					
                    
 				}
-	    	
-
 
             break;
 
    			default://WT.EDIT 2022.10.10 
-			   if(cmd_t.gmotor_upStep !=0 && cmd_t.gCmd != 0 && cmd_t.gCmd !=TempStop && cmd_t.gCmd !=0xf0){
-                   if(cmd_t.handPos !=1 &&  cmd_t.handPos!=2 && cmd_t.bottomPos!=1 && cmd_t.topPos!=1){
-                        if(cmd_t.gCmd_KeyNum == 3)cmd_t.gCmd=MotorDown;//WT.EDIT 2022.09.24 
-                        if(cmd_t.gCmd_KeyNum ==1)cmd_t.gCmd=MotorUp ;   //WT.EDIT  2022.09.24
-                   }
-			   	}
+			   
 			break;
 		}
 	}

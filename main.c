@@ -24,10 +24,11 @@ void main(void)
       
         keyValue = KEY_Scan();
         CheckMode(keyValue);
+        if(cmd_t.gCmd_Power ==PowerOn){
         Do_Charge();
         RunCommand();
-        if(cmd_t.gCmd_Power ==PowerOn){
-          POWER_LED_ON();
+        POWER_LED_ON();
+          //POWER_LED_ON();
           if(blink_LedFrequency==1){
             if( keyValue !=0){
                   gTimer=0;
@@ -36,6 +37,19 @@ void main(void)
                 cmd_t.gCmd_Power =PowerOff;
             }
           }
+        }
+        else{
+            if(gTimer > 5){ //2s x 5 =10s
+                gTimer = 0;
+                Motor_Stop();
+               	cmd_t.gmotor_thefirst_run_flag=0;
+	    		POWER_LED_OFF();
+                BLINK_LED_OFF();
+				
+				cmd_t.gCmd=0xf0;
+                
+            }
+        
         }
           
 

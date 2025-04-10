@@ -67,7 +67,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == key.buffer) //again adjust key if be pressed down 
 			{
-				if(++key.on_time>6000)// 10000 long key be down
+				if(++key.on_time>4000)//6000 10000 long key be down
 				{
 					
 					key.value = key.value|0x80; //key.value = 0x01 | 0x80  =0x81  
@@ -79,7 +79,7 @@ uint8_t KEY_Scan(void)
 			}
 			else if(key.read == _KEY_ALL_OFF)  // loose hand 
 				{
-					if(++key.off_time>2) //30 don't holding key dithering
+					if(++key.off_time>0)//2 //30 don't holding key dithering
 					{
 						key.value = key.buffer^_KEY_ALL_OFF; // key.value = 0x1E ^ 0x1f = 0x01
 						
@@ -101,7 +101,7 @@ uint8_t KEY_Scan(void)
 		{
 			if(key.read == _KEY_ALL_OFF)
 			{
-				if(++key.off_time>5)//50 //100
+				if(++key.off_time>2)//5 //50 //100
 				{
 					key.state   = start;
                   
@@ -138,7 +138,7 @@ void CheckMode(unsigned char keyvalue)
     switch(keyvalue){
         
          case 0x01: // run up or down
-          if( cmd_t.gCmd_Power ==PowerOn  && cmd_t.gDoKey==0){
+          if( cmd_t.gCmd_Power ==PowerOn){
        
 		       if(BOTTOM_POS_RA2_GetValue()==0){//if(cmd_t.bottomPos ==1){
 
@@ -206,11 +206,15 @@ void CheckMode(unsigned char keyvalue)
             	cmd_t.gCmd_Power =PowerOn;
 		        cmd_t.gCmd = 0;//MotorStop;
 		        gTimer=0;
+				POWER_LED_ON();
             }
             else{
                powkey =0;
                cmd_t.gCmd_Power =PowerOff;
-			  
+			    Motor_Stop();
+               	cmd_t.gmotor_thefirst_run_flag=0;
+	    		POWER_LED_OFF();
+                BLINK_LED_OFF();
 			}
 
     	break;
@@ -258,6 +262,7 @@ void RunCommand(void)
 				
 			     	Motor_Stop();//Motor_Stop();
 	    	    	BLINK_LED_OFF();
+				    POWER_LED_ON();
 			    }
              
                 
@@ -325,16 +330,7 @@ void RunCommand(void)
 			break;
 		}
 	}
-	else if(cmd_t.gCmd_Power ==PowerOff){
-               
-    	       Motor_Stop();
-               	cmd_t.gmotor_thefirst_run_flag=0;
-	    		POWER_LED_OFF();
-                BLINK_LED_OFF();
-				
-				cmd_t.gCmd=0xf0;
-                gTimer = 0;
-    }
+	
 
 
 }

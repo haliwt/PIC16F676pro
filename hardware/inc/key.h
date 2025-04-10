@@ -51,7 +51,6 @@ typedef struct _CMD{
    unsigned char gCmd_Power;
    unsigned char direction_flag;
    unsigned char clamphandPos;
-   unsigned char gDoKey ;
    unsigned char gmotor_thefirst_run_flag;
    
 }CMD_T;

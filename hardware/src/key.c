@@ -5,7 +5,7 @@
 //key_types key;
 //CMD_T cmd_t;
 
-static uint8_t powkey=0;
+
 
 void KEY_Init(void)
 {
@@ -16,7 +16,7 @@ void KEY_Init(void)
     
 }
 
-
+#if MODE_KEY
 uint8_t KEY_Scan(void)
 {
   uint8_t  reval = 0;
@@ -120,7 +120,85 @@ uint8_t KEY_Scan(void)
 
 
 }
+#else 
+#define SHORT_PRESS_THRESHOLD 30  // 短按的时间阈值
+#define LONG_PRESS_THRESHOLD 4000   // 长按的时间阈值
+#define DEBOUNCE_THRESHOLD 10      // 去抖动的时间阈值
 
+uint8_t KEY_Scan(void)
+{
+ 
+    static uint16_t k1 = 0; // 记录 KEY1 按下的时间
+    static uint8_t cnt = 0; // 记录按键释放的时间
+    static uint8_t long_press_triggered = 0; // 标记是否已经触发长按事件
+    uint8_t value = 0;
+
+	if (KEY1_RC2_GetValue() == 0){
+	       cnt = 0; // 清除释放计数器
+		   k1++;	// 增加 KEY1 的按下计数
+	
+		   // 如果 KEY1 按下时间超过长按阈值且未触发长按事件，则触发长按
+		   if (k1 >= LONG_PRESS_THRESHOLD && !long_press_triggered) {
+			   long_press_triggered = 1; // 标记长按已触发
+			    cmd_t.gCmd_Power =PowerOn;
+		        cmd_t.gCmd = 0xf0;//MotorStop;
+		        gTimer=0;
+				POWER_LED_ON();
+			   
+			   return 0x81; 			 // 返回长按事件
+		   }
+
+       
+    }
+
+	  // 检测按键释放状态（按键抬起）
+    if (KEY1_RC2_GetValue() == 1){
+       // cnt++; // 增加释放计数器
+
+        // 如果按键释放时间不足 DEBOUNCE_THRESHOLD，认为按键未完全释放
+       // if (cnt < DEBOUNCE_THRESHOLD){
+         ///   return 0;
+       // }
+
+        // 按键已完全释放，处理短按事件
+        cnt = 0;
+
+        // 处理 KEY1 的短按
+        if (k1 > SHORT_PRESS_THRESHOLD && long_press_triggered ==0) {
+			 // 重置按键计数器和长按标记
+        k1 = 0;
+  
+        long_press_triggered = 0;
+		value = 0x01; // 短按 KEY1
+
+        return value;
+            
+        }
+		else{
+		    k1 = 0;
+		 
+			long_press_triggered = 0;
+
+		    return 0;
+
+
+		}
+
+       
+
+       
+    }
+    return 0;
+  
+}
+
+
+
+
+
+
+
+#endif 
 
 
 /**************************************************
@@ -201,16 +279,15 @@ void CheckMode(unsigned char keyvalue)
         break;
 
     	case 0x81: //long times ke be presed power On
-    	   powkey ++;
-    	   if(powkey ==1){
+    	 
+    	   if(cmd_t.gCmd_Power ==PowerOff){
             	cmd_t.gCmd_Power =PowerOn;
-		        cmd_t.gCmd = 0;//MotorStop;
+		        cmd_t.gCmd = 0xf0;//MotorStop;
 		        gTimer=0;
 				POWER_LED_ON();
             }
             else{
-               powkey =0;
-               cmd_t.gCmd_Power =PowerOff;
+               	cmd_t.gCmd_Power =PowerOff;
 			    Motor_Stop();
                	cmd_t.gmotor_thefirst_run_flag=0;
 	    		POWER_LED_OFF();

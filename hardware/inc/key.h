@@ -8,6 +8,8 @@
 
 #define		_KEY_ALL_OFF				0X1F
 
+#define   MODE_KEY                     1
+
 typedef enum{
     stop,
     up,
@@ -20,7 +22,7 @@ typedef enum{
 }up_down_state;
 
 
-
+#if MODE_KEY
 
  typedef enum KEY_STATE{
   start  = 0,
@@ -44,6 +46,9 @@ typedef  struct  _state_
 }key_types;
 
 key_types key;
+
+#endif 
+
 
 typedef struct _CMD{
 

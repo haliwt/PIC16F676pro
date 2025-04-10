@@ -140,44 +140,62 @@ void CheckMode(unsigned char keyvalue)
          case 0x01: // run up or down
           if( cmd_t.gCmd_Power ==PowerOn  && cmd_t.gDoKey==0){
        
-			if(currKey != cmd_t.gCmd_KeyState){
-				currKey = cmd_t.gCmd_KeyState;
-				cmd_t.gmotor_upStep=0;
-				 	cmd_t.gCmd_KeyNum ++;
+		       if(BOTTOM_POS_RA2_GetValue()==0){//if(cmd_t.bottomPos ==1){
 
-				if(cmd_t.bottomPos ==1){
-
-					cmd_t.gCmd_KeyNum =1;
-					cmd_t.bottomPos=0;
+					cmd_t.gCmd = MotorUp; //wt.edif 2025.03.27
+					cmd_t.gmotor_thefirst_run_flag=0;
 				}
-				if(cmd_t.topPos ==1){
-					cmd_t.gCmd_KeyNum = 3;
-					cmd_t.topPos=0;
-				    
+		        else if(TOP_POS_RA1_GetValue()==0 || cmd_t.clamphandPos == null_top_pos){ //RA2 ///else //if(cmd_t.gCmd_KeyNum  ==1){
+		               
+	                    cmd_t.gCmd = MotorDown;
+						cmd_t.gmotor_thefirst_run_flag=0;
+	            }
+			    else if(cmd_t.gCmd == MotorUp){//second be pressed key 
+	           	    cmd_t.gCmd = TempStop; //state is ?
+	           	    Motor_Stop();//Motor_Stop();
+					cmd_t.gmotor_thefirst_run_flag=0;
+           	   }
+           	   else if(cmd_t.gCmd == MotorDown){ //second be pressed key 
+
+                 cmd_t.gCmd = TempStop;
+				 Motor_Stop();//Motor_Stop();
+				 cmd_t.gmotor_thefirst_run_flag=0;
+
+			   }
+           	   else if(cmd_t.gCmd == TempStop){
+
+			      if(cmd_t.clamphandPos== null_up_state){
+
+					  cmd_t.gCmd = MotorUp;
+					  cmd_t.gmotor_thefirst_run_flag=0;
+
+				  }
+				  else if(cmd_t.clamphandPos== null_down_state){
+
+					  cmd_t.gCmd = MotorDown;
+					  cmd_t.gmotor_thefirst_run_flag=0;
+                  }
+                  else if(cmd_t.direction_flag == MotorDown){
+                     
+				      cmd_t.gCmd = MotorUp;
+					  cmd_t.gmotor_thefirst_run_flag=0;
+
+				   }
+				   else if(cmd_t.direction_flag == MotorUp){
+
+				      cmd_t.gCmd = MotorDown;
+					  cmd_t.gmotor_thefirst_run_flag=0;   
+				   }
+           	   	}
+			    else{
+
+			       cmd_t.gCmd = MotorUp;
+				   cmd_t.gmotor_thefirst_run_flag=0;
+			       
 				}
-		    
-			
-            if(cmd_t.gCmd_KeyNum  ==1){
-                if(TOP_POS_RA1_GetValue()==0){ //RA2 
-                      cmd_t.gCmd = MotorDown;
-                }
-           		else cmd_t.gCmd = MotorUp; //state is ?
-				cmd_t.gmotor_upStep=0;
-           	}
-           	else if(cmd_t.gCmd_KeyNum ==2 || cmd_t.gCmd_KeyNum ==4){
-
-                cmd_t.gCmd = TempStop;
-				Motor_Stop();//WT.EDIT 2022.10.10
-				if(cmd_t.gCmd_KeyNum==4)cmd_t.gCmd_KeyNum=0;
-				
-			}
-           	else if(cmd_t.gCmd_KeyNum==3){
-
-                cmd_t.gCmd = MotorDown;
-				
-           	}
-			}
-		}
+			  
+		
+          	}
          
         
         break;
@@ -205,7 +223,14 @@ void CheckMode(unsigned char keyvalue)
     }
 
 }
-
+/****************************************************************
+*
+*Function Name:void RunCommand(void)
+*Function : main process run 
+*Input Ref: NO
+*Return Ref: NO
+*
+****************************************************************/
 void RunCommand(void)
 {
     if(cmd_t.gCmd_Power == PowerOn ){

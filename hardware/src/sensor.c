@@ -46,19 +46,15 @@ void Do_Charge(void)
 		TRISAbits.TRISA0 = 1 ; //as input  GPIO --
         if(Charging_VoltageValue()  < 150  ){ //charing 0.9V =184
 		     cmd_t.gCmd = TempStop;
-             cmd_t.gDoKey =1;
+           
             if(dochargingFlag ==0){
                 dochargingFlag++;
-		     if(cmd_t.gCmd_KeyNum == 1)cmd_t.gCmd_KeyNum =0;
-			 else if(cmd_t.gCmd_KeyNum == 3)cmd_t.gCmd_KeyNum =2;
+		    
             }
 			
 			 
 		}
-        else{
-             cmd_t.gDoKey =0;
-            
-         }
+       
 	}
   
 }

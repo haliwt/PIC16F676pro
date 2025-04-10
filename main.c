@@ -26,8 +26,7 @@ void main(void)
         CheckMode(keyValue);
         Do_Charge();
         RunCommand();
-        if(cmd_t.gCmd==TempStop || cmd_t.gCmd_Power ==PowerOn )
-        {
+        if(cmd_t.gCmd_Power ==PowerOn){
           POWER_LED_ON();
           if(blink_LedFrequency==1){
             if( keyValue !=0){
@@ -41,6 +40,6 @@ void main(void)
           
 
 
-    }
-}
+   }
 
+}

@@ -6,9 +6,16 @@
 
 #define KEY1_RC2_GetValue()           PORTCbits.RC2
 
-
-
 #define		_KEY_ALL_OFF				0X1F
+
+ enum{
+  start  = 0,
+  first  = 1,
+  second = 2,
+  cont   = 3,
+  end    = 4,
+  finish = 5,
+ }state;
 
 //normal times be pressed key
 #define		_KEY_TRG_1_WK_UP     			0x01  //WK_UP
@@ -48,15 +55,9 @@ typedef  struct  _state_
  unsigned char        value;
  unsigned char        off_time;
  unsigned long        on_time;
+  unsigned char       state;
 
- enum{
-  start  = 0,
-  first  = 1,
-  second = 2,
-  cont   = 3,
-  end    = 4,
-  finish = 5,
- }state;
+
 }key_types;
 
 key_types key;
